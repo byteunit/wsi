@@ -1,0 +1,26 @@
+{
+    \begin{axis}[
+        domain=-\xmax:\xmax,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        ylabel={$f(x)$},
+        xlabel={$x$},
+        legend pos=north west,
+        samples=50,
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \addplot[thin, smooth, red] {1/pi*\svala/(\svala*\svala+(x-\tvala)*(x-\tvala))};
+        \addlegendentry[align=left]{\footnotesize{$\mathcal{C}(\svala,\tvala)$}};
+
+        \addplot[thin, smooth, green] {1/pi*\svalb/(\svalb*\svalb+(x-\tvalb)*(x-\tvalb))};
+        \addlegendentry[align=left]{\footnotesize{$\mathcal{C}(\svalb,\tvalb)$}};
+
+        \addplot[thin, smooth, blue] {1/pi*\svalc/(\svalc*\svalc+(x-\tvalc)*(x-\tvalc))};
+        \addlegendentry[align=left]{\footnotesize{$\mathcal{C}(\svalc,\tvalc)$}};
+
+        \addplot[thin, smooth, orange] {1/pi*\svald/(\svald*\svald+(x-\tvald)*(x-\tvald))};
+        \addlegendentry[align=left]{\footnotesize{$\mathcal{C}(\svald,\tvald)$}};
+    \end{axis}
+}

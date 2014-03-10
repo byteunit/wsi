@@ -1,0 +1,21 @@
+{
+    \begin{axis}[
+        domain=0:\xmax,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        ylabel={$f(x)$},
+        xlabel={$x$},
+        legend pos=north east,
+        samples=50,
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \addplot[thin, smooth, red] {\lambdavala*exp(-\lambdavala*x)};
+        \addlegendentry[align=left]{$\mathcal{E}(\lambdavala)$};
+        \addplot[thin, smooth, green] {\lambdavalb*exp(-\lambdavalb*x)};
+        \addlegendentry[align=left]{$\mathcal{E}(\lambdavalb)$};
+        \addplot[thin, smooth, blue] {\lambdavalc*exp(-\lambdavalc*x)};
+        \addlegendentry[align=left]{$\mathcal{E}(\lambdavalc)$};
+    \end{axis}
+}

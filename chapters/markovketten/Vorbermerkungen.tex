@@ -1,0 +1,181 @@
+% This file was converted to LaTeX by Writer2LaTeX ver. 1.0.2
+% see http://writer2latex.sourceforge.net for more info
+%\documentclass[a4paper]{article}
+%\usepackage[ascii]{inputenc}
+%\usepackage[LGR,T1]{fontenc}
+%\usepackage[ngerman,greek,english,english]{babel}
+%\usepackage{amsmath}
+%\usepackage{amssymb,amsfonts,textcomp}
+%\usepackage{color}
+%\usepackage{array}
+%\usepackage{hhline}
+%\usepackage{hyperref}
+%\hypersetup{pdftex, colorlinks=true, linkcolor=blue, citecolor=blue, filecolor=blue, urlcolor=blue, pdftitle=, pdfauthor=, pdfsubject=, pdfkeywords=}
+% Page layout (geometry)
+%\setlength\voffset{-1in}
+%\setlength\hoffset{-1in}
+%\setlength\topmargin{2cm}
+%\setlength\oddsidemargin{2cm}
+%\setlength\textheight{25.7cm}
+%\setlength\textwidth{17.001cm}
+%\setlength\footskip{0.0cm}
+%\setlength\headheight{0cm}
+%\setlength\headsep{0cm}
+% Footnote rule
+%\setlength{\skip\footins}{0.119cm}
+%\renewcommand\footnoterule{\vspace*{-0.018cm}\setlength\leftskip{0pt}\setlength\rightskip{0pt plus 1fil}\noindent\textcolor{black}{\rule{0.25\columnwidth}{0.018cm}}\vspace*{0.101cm}}
+% Pages styles
+%\makeatletter
+%\newcommand\ps@Standard{
+%  \renewcommand\@oddhead{}
+%  \renewcommand\@evenhead{}
+%  \renewcommand\@oddfoot{}
+%  \renewcommand\@evenfoot{}
+%  \renewcommand\thepage{\arabic{page}}
+%}
+%\makeatother
+%\pagestyle{Standard}
+%\title{}
+%\author{}
+%\date{2014-02-24T15:50:54.234000000}
+%\begin{document}
+{\selectlanguage{english}\bfseries
+Vorbemerkungen}
+
+
+\bigskip
+
+Um es gleich vorweg zu nehmen: wir betrachten hier Markovketten. Das
+sind Markovprozesse (ein Spezialfall von stochastischen Prozessen) mit
+diskretem Zustandsraum. D.h.: Die Zust\"ande in unserer Markovkette
+k\"onnen wir als Folgen von Zufallsvariablen betrachten oder auch
+anschaulicher als Knoten eines Graphen die wir \"uber einen Namen in
+Form einer ganzen Zahl identifizieren k\"onnen. Beispielsweise k\"onnte
+unsere Markovkette die Zust\"ande \ \{-3\}, \{-2\}, \{-1\}, \{0\},
+\{1\}, \{2\} enthalten. Au{\ss}erdem besch\"aftigen wir uns hier
+vorerst mit Markovketten nur in diskreter Zeit, was zu einer weiteren
+Vereinfachung f\"uhrt. \ Wir pr\"ufen also nur zu diskreten Zeitpunkten
+ $(0\le t\le \infty )\text{  bzw. }(0\le n\le \infty )$ in welchem
+Zustand sich die Markovkette befindet.
+
+\begin{bsp}
+Ein Beispiel k\"onnte eine Spielfigur sein, welche jede Runde am
+Spielbrett (beispielsweise dem von DKT) entlang zieht. Dies geschieht
+abh\"angig vom W\"urfelergebnis. Wir nehmen an wir w\"urfeln mit nur
+einem \ (fairen) W\"urfel. Wenn wir jede Runde pr\"ufen auf welchem
+Feld die Spielfigur zu stehen kommt, entsprechen die Runden unseren
+diskreten Zeitpunkten und die Spielfelder (welche wir \"uber eine
+Nummer identifizieren k\"onnten) entsprechen unseren diskreten
+Zust\"anden.
+\end{bsp}
+
+{\selectlanguage{english}
+Wir machen Momentaufnahmen, in welchem Zustand sich die Markovkette
+gerade befindet und bezeichnen diese mit  $X_{n}$. Dabei handelt es
+sich um Zufallsvariablen, denn Zust\"ande werden von anderen
+Zust\"anden aus, nur mit gewissen Wahrscheinlichkeiten erreicht. 
+$X_{3}=12$ K\"onnte bedeuten, dass sich die Markovkette zum Zeitpunkt 3
+im Zustand 12 befindet. So k\"onnte etwa die Spielfigur auf Feld 12
+stehen.}
+
+{\selectlanguage{english}
+Wie wir erkennen k\"onnen, sind f\"ur Spielfigur aus nicht alle
+Spielfelder erreichbar sondern nur die (von der aktuellen Position aus
+gesehen) n\"achsten 6 Felder. Die Wahrscheinlichkeit f\"ur den
+\"Ubergang zu diesem Feld bezeichnen wir als
+ \textbf{\"Ubergangswahrscheinlichkeiten}\index{"Ubergangswahrscheinlichkeit@Übergangswahrscheinlichkeit}
+$\mathit{pij}=P(\mathit{Xn}+1=j|\mathit{Xn}=i)$}
+
+{\selectlanguage{english}
+Also die Wahrscheinlichkeit, im n\"achsten Zug auf Feld/im Zustand j zu
+landen wenn wir uns jetzt auf Feld/im Zustand i befinden. In unserem
+Beispiel k\"onnten dies lauten:}
+
+ $p_{12,13}=\frac{1}{6}$  $p_{12,14}=\frac{1}{6}$ 
+$p_{12,15}=\frac{1}{6}$  $p_{12,16}=\frac{1}{6}$ 
+$p_{12,17}=\frac{1}{6}$  $p_{12,18}=\frac{1}{6}$ 
+
+
+\bigskip
+
+{\selectlanguage{english}
+Alle anderen Zust\"ande w\"aren nicht erreichbar, d.h.: die
+entsprechenden \"Ubergangswahrscheinlichkeiten w\"aren 0. Wir k\"onnen
+uns vorstellen, dass auch die \textbf{Markoveigenschaft}\index{Markoveigenschaft} zu trifft. Diese besagt,
+dass die Wahrscheinlichkeit, einen bestimmten Zustand zu erreichen, nur
+vom aktuellen Zustand abh\"angt und nicht von den Zust\"anden die zuvor
+angenommen wurden. Auch f\"ur den n\"achsten Zug der Spielfigur wird es
+unerheblich sein, welche Zust\"ande/Felder sie zuvor passiert hat --
+erreichbar werden immer nur die von der aktuellen Position aus
+gesehenen 6 Felder sein.}
+
+
+\bigskip
+
+{\selectlanguage{english}
+Wir k\"onnen auch t-stufige Übergangswahrscheinlichkeiten definieren: 
+$\mathit{pij}(t)=P(X_{n+t}=j|X_{n=i})$ }
+
+{\selectlanguage{english}
+Diese sind Wahrscheinlichkeiten, einen Zustand in t-Schritten bzw.
+Z\"ugen anzunehmen. }
+
+Wir fassen unsere \"Ubergangswahrscheinlichkeiten zu Matrizen P bzw.
+P(t) zusammen. P(t) ist die \textbf{t-stufige \"Ubergangsmatrix}\index{"Ubergangsmatrix@Übergangsmatrix!t-stufige} und kann aus
+den Potenzen  $P(t)=P^{t}$ berechnet werden.
+
+
+\bigskip
+
+{\selectlanguage{english}
+    Ein weiterer wichtiger Begriff ist die \textbf{Wahrscheinlichkeitsverteilung}\index{Wahrscheinlichkeitsverteilung}.
+    Als einfaches Beispiel nehmen wir hier die \textbf{Anfangsverteilung}\index{Anfangsverteilung} her. Diese
+gibt f\"ur jeden Zustand i die Wahrscheinlichkeit an, dass sich die
+Kette zu Beginn \ {}- also zum Zeitpunkt n=0 -- in Zustand i befindet.}
+
+{\selectlanguage{english}
+Diese (wie auch die anderen Verteilungen) wird in Form eines
+Wahrscheinlichkeitsvektors angegeben, welcher als Zeilenvektor
+aufgefasst wird. Nennen wir unsere Anfangsverteilung \gls{symb:alphaunder} hier z.B.: 
+$\underline{{\alpha }}=(\begin{matrix}\alpha _{0}&\alpha
+_{1}&...&\alpha _{k}\end{matrix})$}
+
+{\selectlanguage{ngerman}
+Dann ist \ diese in unserem Spiel-Beispiel:}
+
+\begin{equation*}
+\underline{{\alpha }}=(\begin{matrix}1&0&...&0\end{matrix})
+\end{equation*}
+{\selectlanguage{ngerman}
+Wenn wir davon ausgehen, dass die Figur definitiv am Start-Feld startet
+und dieses als Zustand 0 bezeichnet wird.}
+
+{\selectlanguage{ngerman}
+    Im folgenden wird auch von der \textbf{station\"aren Verteilung}\index{stationäre Verteilung} \gls{symb:piunder}
+ die Rede sein, welche
+inkonsistenter Weise auch oft ohne den Vektor-Unterstrich angegeben
+wird. Wichtig ist zu wissen, dass diese ebenfalls durch einen
+Wahrscheinlichkeitsvektor in Form eines Zeilenvektors beschrieben wird
+und  $\pi _{i}$ die einzelnen Eintr\"age bezeichnet. }
+
+{\selectlanguage{english}
+\foreignlanguage{ngerman}{Eine
+Beme}\foreignlanguage{ngerman}{rk}\foreignlanguage{ngerman}{ung ist
+noch zu machen was }\foreignlanguage{ngerman}{Formeln mit Summen
+betrifft. In den meisten F\"allen sind darin auch
+\"Ubergangswahrscheinlichkeiten enthalten und wie wir sehen werden sind
+dieses sehr oft 0. D.h.: Es fallen ohnehin die meisten Glieder der
+Reihe weg und es bleibt meistens eine mehr oder weniger einfache
+Differenzengleichung f\"ur die gesuchte Unbekannte \"ubrig. Mehr dazu
+in den Beisp}\foreignlanguage{ngerman}{ielen, welche am Ende des
+Kapitels folgen}\foreignlanguage{ngerman}{.}}
+
+{\selectlanguage{ngerman}
+Mit diesem Wissen, sollte es m\"oglich sein, das nachfolgende Skriptum
+sowie die Beispiele einigerma{\ss}en zu verstehen, ohne dass einen die
+Symbole all zu sehr irritieren.}
+
+
+
+
+%\end{document}

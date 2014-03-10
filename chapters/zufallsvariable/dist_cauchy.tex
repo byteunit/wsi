@@ -1,0 +1,25 @@
+{
+    \begin{axis}[
+        domain=-\xmax:\xmax,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        ylabel={$F(x)$},
+        xlabel={$x$},
+        legend pos=north west,
+        samples=50,
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \addplot[thin, smooth, red] {1/2+1/pi*rad(atan((x-\tvala)/\svala))};
+        \addlegendentry[align=left]{\footnotesize{$\mathcal{C}(\svala,\tvala)$}};
+
+        \addplot[thin, smooth, green] {1/2+1/pi*rad(atan((x-\tvalb)/\svalb))};
+        \addlegendentry[align=left]{\footnotesize{$\mathcal{C}(\svalb,\tvalb)$}};
+
+        \addplot[thin, smooth, blue] {1/2+1/pi*rad(atan((x-\tvalc)/\svalc))};
+        \addlegendentry[align=left]{\footnotesize{$\mathcal{C}(\svalc,\tvalc)$}};
+
+        \addplot[thin, smooth, orange] {1/2+1/pi*rad(atan((x-\tvald)/\svald))};
+        \addlegendentry[align=left]{\footnotesize{$\mathcal{C}(\svald,\tvald)$}};    \end{axis}
+}

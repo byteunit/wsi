@@ -1,0 +1,78 @@
+{
+    \begin{axis}[
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        legend pos=south east,
+        ymin=0,
+        ymax=1,
+        xlabel={k},
+        ylabel={p},%TODO: was ist diese Achse?
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \pgfkeys{/pgf/fpu=true}
+        \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+        \def\xval{0}
+        \def\nextx{1}
+
+        \pgfmathparse{(factorial(\Mvala)/(factorial(\xval)*factorial(\Mvala-\xval))*
+            factorial(\Nvala-\Mvala)/(factorial(\nval-\xval)*factorial((\Nvala-\Mvala)-(\nval-\xval))))/
+            (factorial(\Nvala)/(factorial(\nval)*factorial(\Nvala-\nval)))}
+        \xdef\tvala{\pgfmathresult}
+        \addplot[blue,forget plot] coordinates{(\xval,\tvala)(\nextx,\tvala)};
+        \addplot[continuityblue] coordinates{(\xval,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal H(\Nvala,\Mvala,\nval)$}};
+
+        \pgfmathparse{(factorial(\Mvalb)/(factorial(\xval)*factorial(\Mvalb-\xval))*
+            factorial(\Nvalb-\Mvalb)/(factorial(\nval-\xval)*factorial((\Nvalb-\Mvalb)-(\nval-\xval))))/
+            (factorial(\Nvalb)/(factorial(\nval)*factorial(\Nvalb-\nval)))}        
+        \xdef\tvalb{\pgfmathresult}
+        \addplot[red,forget plot] coordinates{(\xval,\tvalb)(\nextx,\tvalb)};
+        \addplot[continuityred] coordinates{(\xval,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal H(\Nvalb,\Mvalb,\nval)$}};
+
+        \pgfmathparse{(factorial(\Mvalc)/(factorial(\xval)*factorial(\Mvalc-\xval))*
+            factorial(\Nvalc-\Mvalc)/(factorial(\nval-\xval)*factorial((\Nvalc-\Mvalc)-(\nval-\xval))))/
+            (factorial(\Nvalc)/(factorial(\nval)*factorial(\Nvalc-\nval)))}
+        \xdef\tvalc{\pgfmathresult}
+        \addplot[green,forget plot] coordinates{(\xval,\tvalc)(\nextx,\tvalc)};
+        \addplot[continuitygreen] coordinates{(\xval,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal H(\Nvalc,\Mvalc,\nval)$}};
+
+        \foreach \xval in {1,...,\steps} {
+            \pgfkeys{/pgf/fpu=false}
+            \pgfmathtruncatemacro{\nextx}{\xval+1}
+            \pgfkeys{/pgf/fpu=true}
+            \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+            \pgfmathparse{\tvala+(factorial(\Mvala)/(factorial(\xval)*factorial(\Mvala-\xval))*
+                factorial(\Nvala-\Mvala)/(factorial(\nval-\xval)*factorial((\Nvala-\Mvala)-(\nval-\xval))))/
+                (factorial(\Nvala)/(factorial(\nval)*factorial(\Nvala-\nval)))}            
+            \xdef\tvala{\pgfmathresult}
+            \addplot[blue,forget plot] coordinates{(\xval,\tvala)(\nextx,\tvala)};
+            \addplot[continuityblue,forget plot] coordinates{(\xval,\tvala)};
+
+            \pgfmathparse{\tvalb+(factorial(\Mvalb)/(factorial(\xval)*factorial(\Mvalb-\xval))*
+                factorial(\Nvalb-\Mvalb)/(factorial(\nval-\xval)*factorial((\Nvalb-\Mvalb)-(\nval-\xval))))/
+                (factorial(\Nvalb)/(factorial(\nval)*factorial(\Nvalb-\nval)))}
+            \xdef\tvalb{\pgfmathresult}
+            \addplot[red,forget plot] coordinates{(\xval,\tvalb)(\nextx,\tvalb)};
+            \addplot[continuityred,forget plot] coordinates{(\xval,\tvalb)};
+
+            \pgfmathparse{\tvalc+(factorial(\Mvalc)/(factorial(\xval)*factorial(\Mvalc-\xval))*
+                factorial(\Nvalc-\Mvalc)/(factorial(\nval-\xval)*factorial((\Nvalc-\Mvalc)-(\nval-\xval))))/
+                (factorial(\Nvalc)/(factorial(\nval)*factorial(\Nvalc-\nval)))}
+            \xdef\tvalc{\pgfmathresult}
+            \addplot[green,forget plot] coordinates{(\xval,\tvalc)(\nextx,\tvalc)};
+            \addplot[continuitygreen,forget plot] coordinates{(\xval,\tvalc)};
+        }
+
+
+
+        \pgfkeys{/pgf/fpu=false}
+
+
+    \end{axis}
+}

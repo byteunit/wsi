@@ -1,0 +1,257 @@
+\chapter{Markovketten}
+
+\input{chapters/markovketten/Vorbermerkungen.tex}
+
+\section{Stochastische Prozesse}
+\begin{definition}Ein stochastischer Prozess ist 
+eine Familie $(X_t,t\in T)$ von Zufallsvariablen. Die Indexmenge $T$
+wird Parameterraum genannt und soll eine Teilmenge der reellen Zahlen sein.
+Der Wertebereich $M_X$ von $X_t$ heißt Zustandsraum oder Phasenraum.
+Wenn $T$ endlich oder abzählbar (etwa $\mathbb N$) 
+ist, sprechen wir von einem Prozess in
+diskreter Zeit, wenn $T$ ein ganzes (endliches oder unendliches) Intervall
+ist, von einem Prozess in stetiger Zeit, 
+\end{definition}
+Stochastische Prozesse in diskreter Zeit sind einfach Folgen von
+ Zufallsvariablen. Der Unterschied zu unseren früheren Überlegungen besteht 
+darin, dass wir nicht mehr annehmen, dass die einzelnen Zufallsvariablen
+unabhängig sind. Wir müssen also die Abhängigkeiten zwischen den einzelnen
+Zufallsvariablen festlegen, das heißt, wir müssen gewisse Annahmen über
+die gemeinsame Verteilung von $(X_{t_1},\dots,X_{t_n})$ mit 
+$t_1<\dots<t_n$ treffen (Ein berühmter Satz von Kolmogorov besagt, dass
+durch die Angabe dieser ``endlichdimensionalen Randverteilungen'' ein
+stochastischer Prozess festgelegt wird). 
+Einige Möglichkeiten zählen wir jetzt auf:
+\begin{definition}
+Der Prozess $(X_t, t\in T)$ heißt Prozess mit unabhängigen Zuwächsen,
+wenn für $t_1<t_2<\dots>t_n$ die Zufallsvariablen
+\[X(t_1), X(t_2)-X(t_1), X(t_3)-X(t_2),\dots, X(t_n)-X(t_{n-1})\]
+unabhängig sind.
+\end{definition}
+Hier verwenden wir die Notation $X(t)$ für $X_t$, damit die Indizes nicht
+zu sehr überladen werden. 
+Prozesse mit unabhängigen Zuwächsen in diskreter Zeit sind einfach
+Summen von unabhängigen Zufallsvariablen, wie wir sie im letzten Kapitel
+untersucht haben.
+\begin{definition}
+Der Prozess $X(t)$ heißt Markovprozess, wenn für
+wenn für $t_1<t_2<\dots>t_n$ 
+\[\mathbb P(X(t_n)\le x_n|X(t_1)=x_1,\dots,X(t_{n-1})=x_{n-1})=
+\mathbb P(X(t_n)\le x_n|X(t_{n-1})=x_{n-1}).\]
+\end{definition}
+Die Zukunft hängt also von der Vergangenheit nur über den letzten Wert
+$X(t_{n-1})$ ab. Ein Beispiel für Markovprozesse sind Prozesse mit
+unabhängigen Zuwächsen.
+\begin{definition}
+Der Prozess $X_t,t\in T$ heißt stationär, wenn
+wenn für $t_1<t_2<\dots>t_n$ und $h>0$
+die gemeinsame Verteilung von $(X(t_1),\dots,X(t_n))$
+mit der von $(X(t_1+h),\dots,X(t_n+h))$ übereinstimmt.
+\end{definition}
+\section{Markovketten in diskreter Zeit}
+\subsection{Übergangswahrscheinlichkeiten}
+\label{sec:uebergangswahrscheinlichkeit}
+\index{"Ubergangswahrscheinlichkeit@Übergangswahrscheinlichkeit}
+%TODO
+Markovprozesse mit diskretem Zustandsraum nennen wir Markovketten. Wir 
+können noch zwischen Markovketten in diskreter und in stetiger Zeit
+unterscheiden. Die Diskussion von Markovketten in stetiger Zeit
+werden wir auf später verschieben. In beiden Fällen kann man die
+diskrete Verteilung der einzelnen Zufallsvariablen durch ihre Wahrscheinlichkeitsfunktion beschreiben, deshalb erhält die Markoveigenschaft die besonders einfache Form
+\[\mathbb P(X_n= x_n|X_1=x_1,\dots,X_n=x_n)=
+\mathbb P(X_n=x_n|X_{n-1}=x_{n-1}).\]
+Die Wahrscheinlichkeiten
+\[\mathbb P(X_{n+1}=j|X_n=i)\]
+nennen wir die Übergangswahrscheinlichkeiten der Markovkette. Wenn diese
+nicht von $n$ abhängen, sprechen wir von einer homogenen Markovkette und
+setzen
+\[p_{ij}=\mathbb P(X_{n+1}=j|X_n=i)\]
+
+\begin{definition}
+Die Wahrscheinlichkeiten
+\[p_{ij}(t)=\mathbb P(X_{n+t}=j|X_n=i)\]
+nennen wir die \textbf{$t$-stufigen Übergangswahrscheinlichkeiten}. 
+Aus dem Satz von der vollständigen Wahrscheinlichkeit erhalten wir
+die \textbf{Chapman-Kolmogorov Gleichungen}\index{Chapman-Kolmogorov Gleichungen}\index{Kolmogorov-Chapman Gleichungen|see{Chapman-Kolmogorov Gleichungen}} 
+\end{definition}
+%TODO: nicht als eigenen satz oder definition oder so???
+\[p_{ij}(s+t)=\sum_{k\in M_X}p_{ik}(s)p_{kj}(t).\]
+in Matrixnotation mit
+\[P(t)=(p_{ij}(t))_{M_X\times M_X}\]
+lauten die Chapman-Kolmogorov
+Gleichungen
+\[P(t+s)=P(t)P(s),\]
+und mit $P=P(1)$
+\[P(t)=P^t.\]
+Wir nennen $P$ die \textbf{Übergangsmatrix} und $P(t)$ die \textbf{t-stufige Übergangsmatrix}.
+\index{"Ubergangsmatrix@Übergangsmatrix}\index{"Ubergangsmatrix@Übergangsmatrix!t-stufige}
+
+Wir setzen zusätzlich $p_i(t)=\mathbb P(X_t=i)$ und $p(t)=(p_i(t),i\in M_X)$
+(als Zeilenvektor). Wieder mit dem Satz von der vollständigen Wahrscheinlichkeit erhalten wir
+\[p(t)=p(0)P^t.\]
+Wie man am besten Matrixpotenzen berechnet, siehe Anhang \ref{sec:matrixpotenz}.
+Durch $p(0)$ und $P$ werden alle endlichdimensionalen Verteilungen festgelegt.
+
+In Hinkunft verwenden wir zur Abkürzung die Notationen
+\[\mathbb P_i(A)=\mathbb P(A|X_0=i)\]
+und
+\[\mathbb E_i(Y)=\mathbb E(Y|X_0=i).\]
+\subsection{Klasseneigenschaften}
+\label{sec:klasseneigenschaften}
+Wir definieren
+\begin{definition}
+    \label{def:nachfolger}\label{def:verbunden}\label{def:kommunizierend}
+    \index{Nachfolger}
+Der Zustand $j$ heißt \textbf{Nachfolger} von $i$ ($i\rightarrow j$), wenn es ein
+$t\ge 0$ gibt, sodass $p_{ij}(t)>0$.
+
+Wenn sowohl $i\rightarrow j$ als auch $j\rightarrow i$ gilt, dann heißen
+$i$ und $j$ \textbf{verbunden} oder \textbf{kommunizierend}.\index{verbunden}\index{kommunizierend}
+\end{definition}
+
+Das Kommunizieren ist eine Äquivalenzrelation, wir können daher 
+den Phasenraum in die Äquivalenzklassen zerlegen, die wir Rekurrenzklassen
+oder kurz Klassen nennen. Gibt es nur eine Klasse (wenn also alle
+Zustände miteinander kommunizieren), heißt die Markovkette \textbf{irreduzibel}\index{irreduzibel}.
+\index{absorbierender Zustand}\index{Zustand, absorbierend|see{absorbierender Zustand}}
+Ein Zustand mit $p_{ii}=1$ heißt \textbf{absorbierender Zustand}. Ein solcher Zustand
+ist offensichtlich eine Klasse für sich (no pun intended).
+\begin{definition}
+    \label{def:klasseneigenschaft}
+Eine Eigenschaft heißt \textbf{Klasseneigenschaft}\index{Klasseneigenschaft}, wenn sie entweder für alle
+Zustände einer Klasse oder für  keinen gilt.
+\end{definition}
+
+Ein einfaches Beispiel einer Klasseneigenschaft ist die Periode:
+\begin{definition}
+    \label{def:periode}\index{Periode}
+Die \textbf{Periode} eines Zustandes ist
+\[d(i)=\mathrm{ggT}\{t\ge 0:p_{ii}(t)>0\}.\]
+
+Sie definiert also den kleinsten möglichen Weg, um von Zustand $i$ wieder zum Zustand $i$ zurückzukehren.
+\end{definition}
+Etwas spannender ist die \textbf{Rekurrenz}\index{Rekurrenz}: dazu definieren wir zuerst
+\[\tau_i=\inf\{t>0:X_t=i\},\]
+die \textbf{Übergangszeit}\index{"Ubergangszeit@Übergangszeit} bzw.\ \textbf{Rückkehrzeit}\index{R"uckkehrzeit@Rückkehrzeit} (je nachdem, ob $X_0\neq i$ ist
+oder nicht) nach $i$,
+und
+\[\nu_i=\#\{t>0:X_t=i\},\]
+die Anzahl der Besuche in $i$.
+
+\begin{satz}
+Die folgenden Bedingungen sind äquivalent:
+\begin{enumerate}
+\item $\mathbb P_i(\tau_i<\infty)=1$,
+\item $\mathbb P_i(\nu_i=\infty)=1$,
+\item $\mathbb E_i(\nu_i)=\infty$,
+\item $\sum_tp_{ii}(t)=\infty$.
+\end{enumerate}
+Wenn diese Bedingungen erfüllt sind, dann heißt $i$ rekurrent, sonst
+transient. Rekurrenz und Transienz sind Klasseneigenschaften.
+\end{satz}
+
+Bei der Rekurrenz kann man weiter unterscheiden:
+\begin{definition}
+$i$ sei ein rekurrenter Zustand. Wenn 
+\[\mathbb E_i(\tau_i)<\infty\]
+gilt, dann heißt $i$ \textbf{positiv rekurrent}, sonst \textbf{nullrekurrent}.\index{Rekurrenz!positiv-|see{positiv Rekurrent}}\index{Rekurrenz!null-|see{Nullrekurrent}}\index{Nullrekurrent}\index{positiv Rekurrent}
+\end{definition}
+
+\begin{definition}
+$(\pi_i, i\in M_X)$ heißt \textbf{stationäre Verteilung}\index{stationäre Verteilung}, wenn
+\[\pi_i\ge 0,\]
+\[\sum_i\pi_i=1\]
+und
+\[\sum_i \pi_ip_{ij}=p_j.\]
+
+Die stationäre Verteilung ist die Verteilung, die man für die Zustände
+einer Markovkette erhält, wenn man sie nach einer sehr langen Zeit betrachtet. Dann sollten die Anfangseffekte (= Anfangswahrscheinlichkeit)
+nicht mehr sichtbar sein. Dazu müssen wir erst die Wahrscheinlichkeit für
+einen Zustand $i$ zum Zeitpunkt $t$ berechen.
+\end{definition}
+
+\begin{satz}
+Wenn $(X_n)$ irreduzibel und aperiodisch ist, dann existieren die
+Grenzwerte
+\[\lim_{n\to\infty}p_{ij}(t)=\pi_j={1\over \mathbb E_j(\tau_j)}.\]
+Im periodischen Fall gilt
+\[\pi_j=\lim_{n\to\infty}{1\over n}\sum_{t=1}^{n}p_{ij}(t).\]
+Wenn $(\pi_i)$ nicht identisch verschwindet (also wenn die Kette positiv
+rekurrent ist), dann ist es eine
+\textbf{stationäre Verteilung}\index{stationäre Verteilung}. Umgekehrt folgt aus der Existenz
+einer stationären Verteilung die positive Rekurrenz. Die positive Rekurrenz
+bzw.\ Nullrekurrenz ist ebenfalls eine Klasseneigenschaft.
+\end{satz}
+
+Für einen absorbierenden Zustand $i_0$ definieren wir die 
+\textbf{Absorptionswahrscheinlichkeit $a_i$}\index{Absorptionswahrscheinlichkeit} als
+\[\mathbb P_i(\tau_{i_0}<\infty)=\mathbb P_i(X\mbox{wird in }i_0\mbox{ absorbiert}).\]
+
+
+
+\begin{satz}
+Die Absorptionswahrscheinlichkeiten sind die kleinste nichtnegative Lösung
+des Gleichungssystems
+\[a_{i_0}=1,\]
+\[a_i=\sum_jp_{ij}a_j, i\neq i_0.\]
+\end{satz}
+
+Das gibt uns eine Möglichkeit, die Transienz oder Rekurrenz einer
+irreduziblen Markovkette zu entscheiden. Wir wählen einen Zustand und
+machen ihn zu einem absorbierenden Zustand und bestimmen für die
+modifizierte Übergangsmatrix die Absorptionswahrscheinlichkeiten. Sind diese
+gleich 1, ist die Kette rekurrent. 
+
+Wir nehmen an, dass $i_0$ der einzige absorbierende Zustand ist und
+alle anderen Zustände kommunizieren und die Absorptionswahrscheinlichkeiten
+1 sind.
+Dann erhalten wir für die mittlere Zeit bis zur Absorption (\textbf{mittlere Absorptionszeit}\index{mittlere Absorptionszeit}\index{Absorptionszeit!mittlere -|see{mittlere Absorptionszeit}})
+\[m_i=\mathbb E_i(\tau_{i_0})\]
+ eine ähnliche Gleichung:
+\[m_{i_0}=0,
+\]
+\[m_i=1+\sum_jp_{ij}m_j, i\neq i_0.\]
+
+Allgemeiner kann man eine Zufallsvariable 
+$S=\sum_{t=1}^{\tau-1}x_{t,t+1}$ betrachten (d.h., wir ``sammeln'' auf
+unserem Weg zur Absorption Beträge $x_{ij}$, die von dem jeweiligen
+Übergang abhängen dürfen). 
+
+Wir setzen 
+\[m_i=\mathbb E_i(S)\]
+und
+\[v_i=\mathbb V_i(S).\]
+
+Dann sind $m_i$ und $v_i$ die Lösungen der Gleichungen
+
+\[m_{i_0}=0,v_i(i_0)=0,\]
+\[m_i=\sum_jp_{ij}x_{ij}+\sum_jp_{ij}m_j, i\neq i_0.\]
+\[v_i=\sum_jp_{ij}(x_{ij}i+m_j-m_i)^2+\sum_jp_{ij}v_j, i\neq i_0.\]
+
+Wenn es mehrere absorbierende Zustände Zustände gibt, $A=\{i_1,\dots,i_k\}$,
+dann kann man die Wahrscheinlichkeiten der Absorption  $a_i(i_j)$ in dem
+absorbierenden Zustand $i_j$ oder allgemeiner in einem der Zustände in der
+Menge $B\subseteq A$ ($a_i=a_i(B)$). Das gibt die Gleichungen
+\[a_i=\sum_jp_{ij}a_j, i\not\in A\]
+\[a_i=1, i\in B\]
+\[a_i=0, i\in A\setminus B.\]
+
+Manchmal ist es interessant (wieviel Geld werde ich haben, wenn ich nicht
+bankrott gehe?), den Erwartungswert von $S$ unter der Bedingung, dass die
+Absorption in einem bestimmten Zustand oder in einer bestimmten Teilmenge
+der Menge der absorbierenden Zustände erfolgt. 
+Da hilft es, dass $X(t)$ unter der Bedingung der Absorption in $B$
+wieder eine Markovkette bildet, mit den Übergangswahrscheinlichkeiten
+\[p_{ij}^B={p_{ij}a_j(B)\over a_i(B)}.\]
+Mit diesen modifizierten Übergangswahrscheinlichkeiten (wobei die
+absorbierenden Zustände $\not\in B$ weggelassen werden) kann man
+die Gleichungen für $m_i$ $v_i$ lösen und erhält so die bedingte
+Erwartung bzw.\ Varianz.
+
+
+
+
+\subsection{Markov Chain Monte Carlo}
+
+
+

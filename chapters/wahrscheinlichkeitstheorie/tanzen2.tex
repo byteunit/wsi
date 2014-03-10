@@ -1,0 +1,16 @@
+{
+    \def\firstcircle{(90:0.8cm) circle (1cm)}
+    \def\secondcircle{(210:0.8cm) circle (1cm)}
+    \def\thirdcircle{(330:0.8cm) circle (1cm)}
+    \def\rectangle{(-2,-1.5) rectangle (2,2)}
+
+    \fill[black!10] \rectangle;
+    \fill[orange] \firstcircle;
+    \fill[orange] \secondcircle;
+    \fill[orange] \thirdcircle;
+
+    \draw[red] \firstcircle;
+    \draw[blue] \secondcircle;
+    \draw[green!40!black] \thirdcircle;
+    \draw[black] \rectangle node[below left,black] {$\Omega$};
+}

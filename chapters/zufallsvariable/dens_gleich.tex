@@ -1,0 +1,38 @@
+{
+    \def\xa{1}
+    \def\xb{2}
+    \def\xmax{3}
+    \def\yval{1}
+    \def\ymax{1.5}
+    \begin{axis}[
+        domain=0:\xmax,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        ylabel={$f(x)$},
+        ymax=\ymax,
+        xlabel={$x$},
+        xticklabels={$0$,$a$,$b$},
+        xtick={0,1,2},
+        yticklabels={$0$,$\frac{1}{b-a}$,$$},
+        ytick={0,1,1.5},
+        legend pos=north east,
+        samples=50,
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \addplot[thin, smooth, red, name path global=plota, domain=0:\xa] {0};
+        \addplot[thin, smooth, red, name path global=plotb, domain=\xa:\xb] {\yval};
+        \addplot[thin, smooth, red, name path global=plotc, domain=\xb:\xmax] {0};
+        \addlegendentry[align=left]{$\mathcal{U}(a, b)$};
+
+        \draw [thick,dashed,black] ({axis cs:\xa,0}) -- ({axis cs:\xa,\yval});
+        \draw [thick,dashed,black] ({axis cs:\xb,0}) -- ({axis cs:\xb,\yval});
+
+        \node[continuityred] at ({axis cs:\xa,\yval}){};
+        \node[continuityred] at ({axis cs:\xb,\yval}){};
+
+        \node[discontinuityred] at ({axis cs:\xa,0}){};
+        \node[discontinuityred] at ({axis cs:\xb,0}){};
+    \end{axis}
+}

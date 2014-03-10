@@ -1,0 +1,49 @@
+{
+    \begin{axis}[
+        domain=0:\nval,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        legend pos=north east,
+        ymin=0,
+        ymax=1,
+        xlabel={k},
+        ylabel={p},%TODO: was ist diese Achse?
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \pgfkeys{/pgf/fpu=true}
+        \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+        \def\xval{0}
+        \pgfmathparse{1/factorial(\xval)*\lvala^\xval*\euler^(-\lvala)}
+        \addplot[continuityblue] coordinates{(\xval,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal P(\lvala)$}};
+
+        \pgfmathparse{1/factorial(\xval)*\lvalb^\xval*\euler^(-\lvalb)}
+        \addplot[continuityred] coordinates{(\xval,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal P(\lvalb)$}};
+
+        \pgfmathparse{1/factorial(\xval)*\lvalc^\xval*\euler^(-\lvalc)}
+        \addplot[continuitygreen] coordinates{(\xval,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal P(\lvalc)$}};
+
+        \foreach \xval in {1,...,\nval} {
+            \pgfkeys{/pgf/fpu=false}
+            \pgfmathtruncatemacro{\nextx}{\xval+1}
+            \pgfkeys{/pgf/fpu=true}
+            \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+            \pgfmathparse{1/factorial(\xval)*\lvala^\xval*\euler^(-\lvala)}
+            \addplot[continuityblue,forget plot] coordinates{(\xval,\pgfmathresult)};
+
+            \pgfmathparse{1/factorial(\xval)*\lvalb^\xval*\euler^(-\lvalb)}
+            \addplot[continuityred,forget plot] coordinates{(\xval,\pgfmathresult)};
+
+            \pgfmathparse{1/factorial(\xval)*\lvalc^\xval*\euler^(-\lvalc)}
+            \addplot[continuitygreen,forget plot] coordinates{(\xval,\pgfmathresult)};
+        }
+
+        \pgfkeys{/pgf/fpu=false}
+    \end{axis}
+}

@@ -1,0 +1,36 @@
+{
+    \begin{axis}[
+        domain=-4:4,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        legend pos=north west,
+        xlabel={k},
+        ylabel={p},%TODO: was ist diese Achse?
+        samples=200,
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \pgfkeys{/pgf/fpu=true}
+        \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+        \def\x{1}
+        \addplot[continuityblue] coordinates{(\x,0)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal D(\aval,\bval)$}};
+
+        \foreach \x in {\aval,...,\bval} {
+            \pgfkeys{/pgf/fpu=false}
+            \pgfmathtruncatemacro{\nextx}{\x+1}
+            \pgfkeys{/pgf/fpu=true}
+            \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+            \pgfmathparse{1/(\bval-\aval+1)}
+            \addplot[continuityblue,forget plot] coordinates{(\x,\pgfmathresult)};
+        }
+
+        \pgfkeys{/pgf/fpu=false}
+
+        \pgfmathtruncatemacro{\x}{\bval+1}
+        \addplot[continuityblue] coordinates{(\x,0)};
+    \end{axis}
+}

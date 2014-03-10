@@ -1,0 +1,20 @@
+{
+    %note that you have to define \muval and \sigmaval before!
+
+    \begin{axis}[
+    domain=600:1400,
+    axis x line=bottom, % no box around the plot, only x and y axis
+    axis y line=left, % the * would suppress the arrow tips
+    xtick={600,800,...,1400},
+    xlabel={Gewicht [g]},
+    ylabel={},%TODO: was ist diese Achse?
+    samples=50,
+    height=5cm,
+    width=10cm,
+    clip=false]
+
+    \addplot[thin, smooth, blue] {normal_distribution(\muval,\sigmaval,x)};
+    \addlegendentry[align=left]{$\mathcal{N}(\muval, \sigmaval)$};
+    \draw [thick,dashed,black] (current axis.south-|{axis cs:\muval,0}) -- (current axis.north-|{axis cs:\muval,0}) node [above] {$\mu_0$};
+\end{axis}
+}

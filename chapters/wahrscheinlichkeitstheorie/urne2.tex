@@ -1,0 +1,17 @@
+{
+\begin{scope}[yshift=-180,yslant=0.5,xslant=-1]
+    %circle circumventing the smallest cluster 
+    \node[circle,circular glow,fill=red!20,draw=red,thick]
+    at (4.4,2.8) {\phantom{perimetro}};
+\end{scope}
+
+%atom clusters are rotated for a better visualisation
+\begin{scope}[rotate around = {-5:(0,0,0)}]
+    \draw[-latex,thick](2,-4)node[below]
+        {Ziehe} to[out=90,in=270] (1.8,-2.95);
+    \foreach \x  in {6.6,7.1}
+        \shadedraw [ball color=black] (\x,2.5,12.8) circle (0.25cm);
+    \foreach \x  in {6.5,7}
+        \shadedraw [ball color=white] (\x,2.5,13.5) circle (0.25cm);
+\end{scope}
+}

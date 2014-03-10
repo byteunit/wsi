@@ -1,0 +1,21 @@
+\begin{axis}[
+    domain=-4:4,
+    axis x line=bottom, % no box around the plot, only x and y axis
+    axis y line=left, % the * would suppress the arrow tips
+    ylabel={$\Phi_{\muval,\sigmaval^2}(x)$},
+    xlabel={$x$},
+    legend pos=south east,
+    samples=50,
+    height=5cm,
+    width=7cm,
+    clip=false]
+
+    \ifnum\pdfshellescape=1 %makro to check, if shellescape is set, to prevent errors from windows
+    \def\cdf(#1)(#2)(#3){1/2*(1+(erf((#3-#1)/(#2*sqrt(2)))))}
+    \addplot[smooth,blue] gnuplot{1.00001*\cdf(\muval)(\sigmaval)(x)}; %multiply with 1.00001, otherwise it wouldn't be displayed
+    \addlegendentry[align=left]{$\mathcal N(\muval,\sigmaval)$};
+    \fi
+
+    \draw [thick,dashed,black] (current axis.south-|{axis cs:\muval,0}) -- (current axis.north-|{axis cs:\muval,0}) node [above] {$\mu=\muval$};
+
+\end{axis}

@@ -1,0 +1,324 @@
+%note that you have to define \valvarianz and \valoverliney before!
+\def\muval{\valoverliney}
+\def\sigmaval{\valvarianz}
+
+\begin{axis}[
+    domain=-4:14,
+    axis x line=bottom, % no box around the plot, only x and y axis
+    axis y line=left, % the * would suppress the arrow tips
+    ylabel={Anzahl $n$},
+    legend pos=south east,
+    samples=50,
+    height=5cm,
+    width=10cm,
+    clip=false]
+
+    \ifnum\pdfshellescape=1 %makro to check, if shellescape is set, to prevent errors from windows
+    \def\cdf(#1)(#2)(#3){1/2*(1+(erf((#3-#1)/(#2*sqrt(2)))))}
+    \addplot[smooth,red] gnuplot{100*\cdf(5)(2)(x)};
+    \addlegendentry[align=left]{Verteilung Real};
+    \fi
+
+    \addplot[blue] coordinates{(-1, 0)(-0.344732, 0)};
+    %-0.344732
+    \addlegendentry[align=left]{Verteilung gemessen};
+    \addplot[blue,forget plot] coordinates{(-0.344732, 1)(-0.213523, 1)};
+    \draw[dotted] (axis cs:-0.344732,0) -- (axis cs: -0.344732, 1);
+    %-0.213523
+    \addplot[blue,forget plot] coordinates{(-0.213523, 2)(0.109964, 2)};
+    \draw[dotted] (axis cs:-0.213523,1) -- (axis cs: -0.213523, 2);
+    %0.109964
+    \addplot[blue,forget plot] coordinates{(0.109964, 3)(0.732875, 3)};
+    \draw[dotted] (axis cs:0.109964,2) -- (axis cs: 0.109964, 3);
+    %0.732875
+    \addplot[blue,forget plot] coordinates{(0.732875, 4)(0.836437, 4)};
+    \draw[dotted] (axis cs:0.732875,3) -- (axis cs: 0.732875, 4);
+    %0.836437
+    \addplot[blue,forget plot] coordinates{(0.836437, 5)(1.01272, 5)};
+    \draw[dotted] (axis cs:0.836437,4) -- (axis cs: 0.836437, 5);
+    %1.01272
+    \addplot[blue,forget plot] coordinates{(1.01272, 6)(1.09892, 6)};
+    \draw[dotted] (axis cs:1.01272,5) -- (axis cs: 1.01272, 6);
+    %1.09892
+    \addplot[blue,forget plot] coordinates{(1.09892, 7)(1.26684, 7)};
+    \draw[dotted] (axis cs:1.09892,6) -- (axis cs: 1.09892, 7);
+    %1.26684
+    \addplot[blue,forget plot] coordinates{(1.26684, 8)(1.97963, 8)};
+    \draw[dotted] (axis cs:1.26684,7) -- (axis cs: 1.26684, 8);
+    %1.97963
+    \addplot[blue,forget plot] coordinates{(1.97963, 9)(2.12856, 9)};
+    \draw[dotted] (axis cs:1.97963,8) -- (axis cs: 1.97963, 9);
+    %2.12856
+    \addplot[blue,forget plot] coordinates{(2.12856, 10)(2.34886, 10)};
+    \draw[dotted] (axis cs:2.12856,9) -- (axis cs: 2.12856, 10);
+    %2.34886
+    \addplot[blue,forget plot] coordinates{(2.34886, 11)(2.51757, 11)};
+    \draw[dotted] (axis cs:2.34886,10) -- (axis cs: 2.34886, 11);
+    %2.51757
+    \addplot[blue,forget plot] coordinates{(2.51757, 12)(2.69602, 12)};
+    \draw[dotted] (axis cs:2.51757,11) -- (axis cs: 2.51757, 12);
+    %2.69602
+    \addplot[blue,forget plot] coordinates{(2.69602, 13)(2.82636, 13)};
+    \draw[dotted] (axis cs:2.69602,12) -- (axis cs: 2.69602, 13);
+    %2.82636
+    \addplot[blue,forget plot] coordinates{(2.82636, 14)(2.86175, 14)};
+    \draw[dotted] (axis cs:2.82636,13) -- (axis cs: 2.82636, 14);
+    %2.86175
+    \addplot[blue,forget plot] coordinates{(2.86175, 15)(2.87666, 15)};
+    \draw[dotted] (axis cs:2.86175,14) -- (axis cs: 2.86175, 15);
+    %2.87666
+    \addplot[blue,forget plot] coordinates{(2.87666, 16)(2.90335, 16)};
+    \draw[dotted] (axis cs:2.87666,15) -- (axis cs: 2.87666, 16);
+    %2.90335
+    \addplot[blue,forget plot] coordinates{(2.90335, 17)(2.90784, 17)};
+    \draw[dotted] (axis cs:2.90335,16) -- (axis cs: 2.90335, 17);
+    %2.90784
+    \addplot[blue,forget plot] coordinates{(2.90784, 18)(2.94415, 18)};
+    \draw[dotted] (axis cs:2.90784,17) -- (axis cs: 2.90784, 18);
+    %2.94415
+    \addplot[blue,forget plot] coordinates{(2.94415, 19)(2.97867, 19)};
+    \draw[dotted] (axis cs:2.94415,18) -- (axis cs: 2.94415, 19);
+    %2.97867
+    \addplot[blue,forget plot] coordinates{(2.97867, 20)(3.12832, 20)};
+    \draw[dotted] (axis cs:2.97867,19) -- (axis cs: 2.97867, 20);
+    %3.12832
+    \addplot[blue,forget plot] coordinates{(3.12832, 21)(3.14568, 21)};
+    \draw[dotted] (axis cs:3.12832,20) -- (axis cs: 3.12832, 21);
+    %3.14568
+    \addplot[blue,forget plot] coordinates{(3.14568, 22)(3.21075, 22)};
+    \draw[dotted] (axis cs:3.14568,21) -- (axis cs: 3.14568, 22);
+    %3.21075
+    \addplot[blue,forget plot] coordinates{(3.21075, 23)(3.33058, 23)};
+    \draw[dotted] (axis cs:3.21075,22) -- (axis cs: 3.21075, 23);
+    %3.33058
+    \addplot[blue,forget plot] coordinates{(3.33058, 24)(3.45366, 24)};
+    \draw[dotted] (axis cs:3.33058,23) -- (axis cs: 3.33058, 24);
+    %3.45366
+    \addplot[blue,forget plot] coordinates{(3.45366, 25)(3.50146, 25)};
+    \draw[dotted] (axis cs:3.45366,24) -- (axis cs: 3.45366, 25);
+    %3.50146
+    \addplot[blue,forget plot] coordinates{(3.50146, 26)(3.56306, 26)};
+    \draw[dotted] (axis cs:3.50146,25) -- (axis cs: 3.50146, 26);
+    %3.56306
+    \addplot[blue,forget plot] coordinates{(3.56306, 27)(3.59241, 27)};
+    \draw[dotted] (axis cs:3.56306,26) -- (axis cs: 3.56306, 27);
+    %3.59241
+    \addplot[blue,forget plot] coordinates{(3.59241, 28)(3.63463, 28)};
+    \draw[dotted] (axis cs:3.59241,27) -- (axis cs: 3.59241, 28);
+    %3.63463
+    \addplot[blue,forget plot] coordinates{(3.63463, 29)(3.65456, 29)};
+    \draw[dotted] (axis cs:3.63463,28) -- (axis cs: 3.63463, 29);
+    %3.65456
+    \addplot[blue,forget plot] coordinates{(3.65456, 30)(3.83962, 30)};
+    \draw[dotted] (axis cs:3.65456,29) -- (axis cs: 3.65456, 30);
+    %3.83962
+    \addplot[blue,forget plot] coordinates{(3.83962, 31)(3.94673, 31)};
+    \draw[dotted] (axis cs:3.83962,30) -- (axis cs: 3.83962, 31);
+    %3.94673
+    \addplot[blue,forget plot] coordinates{(3.94673, 32)(4.03131, 32)};
+    \draw[dotted] (axis cs:3.94673,31) -- (axis cs: 3.94673, 32);
+    %4.03131
+    \addplot[blue,forget plot] coordinates{(4.03131, 33)(4.05808, 33)};
+    \draw[dotted] (axis cs:4.03131,32) -- (axis cs: 4.03131, 33);
+    %4.05808
+    \addplot[blue,forget plot] coordinates{(4.05808, 34)(4.11354, 34)};
+    \draw[dotted] (axis cs:4.05808,33) -- (axis cs: 4.05808, 34);
+    %4.11354
+    \addplot[blue,forget plot] coordinates{(4.11354, 35)(4.16419, 35)};
+    \draw[dotted] (axis cs:4.11354,34) -- (axis cs: 4.11354, 35);
+    %4.16419
+    \addplot[blue,forget plot] coordinates{(4.16419, 36)(4.18878, 36)};
+    \draw[dotted] (axis cs:4.16419,35) -- (axis cs: 4.16419, 36);
+    %4.18878
+    \addplot[blue,forget plot] coordinates{(4.18878, 37)(4.22557, 37)};
+    \draw[dotted] (axis cs:4.18878,36) -- (axis cs: 4.18878, 37);
+    %4.22557
+    \addplot[blue,forget plot] coordinates{(4.22557, 38)(4.23323, 38)};
+    \draw[dotted] (axis cs:4.22557,37) -- (axis cs: 4.22557, 38);
+    %4.23323
+    \addplot[blue,forget plot] coordinates{(4.23323, 39)(4.33356, 39)};
+    \draw[dotted] (axis cs:4.23323,38) -- (axis cs: 4.23323, 39);
+    %4.33356
+    \addplot[blue,forget plot] coordinates{(4.33356, 40)(4.36949, 40)};
+    \draw[dotted] (axis cs:4.33356,39) -- (axis cs: 4.33356, 40);
+    %4.36949
+    \addplot[blue,forget plot] coordinates{(4.36949, 41)(4.46429, 41)};
+    \draw[dotted] (axis cs:4.36949,40) -- (axis cs: 4.36949, 41);
+    %4.46429
+    \addplot[blue,forget plot] coordinates{(4.46429, 42)(4.47114, 42)};
+    \draw[dotted] (axis cs:4.46429,41) -- (axis cs: 4.46429, 42);
+    %4.47114
+    \addplot[blue,forget plot] coordinates{(4.47114, 43)(4.58031, 43)};
+    \draw[dotted] (axis cs:4.47114,42) -- (axis cs: 4.47114, 43);
+    %4.58031
+    \addplot[blue,forget plot] coordinates{(4.58031, 44)(4.75607, 44)};
+    \draw[dotted] (axis cs:4.58031,43) -- (axis cs: 4.58031, 44);
+    %4.75607
+    \addplot[blue,forget plot] coordinates{(4.75607, 45)(4.75648, 45)};
+    \draw[dotted] (axis cs:4.75607,44) -- (axis cs: 4.75607, 45);
+    %4.75648
+    \addplot[blue,forget plot] coordinates{(4.75648, 46)(4.77195, 46)};
+    \draw[dotted] (axis cs:4.75648,45) -- (axis cs: 4.75648, 46);
+    %4.77195
+    \addplot[blue,forget plot] coordinates{(4.77195, 47)(4.86651, 47)};
+    \draw[dotted] (axis cs:4.77195,46) -- (axis cs: 4.77195, 47);
+    %4.86651
+    \addplot[blue,forget plot] coordinates{(4.86651, 48)(4.94548, 48)};
+    \draw[dotted] (axis cs:4.86651,47) -- (axis cs: 4.86651, 48);
+    %4.94548
+    \addplot[blue,forget plot] coordinates{(4.94548, 49)(4.97367, 49)};
+    \draw[dotted] (axis cs:4.94548,48) -- (axis cs: 4.94548, 49);
+    %4.97367
+    \addplot[blue,forget plot] coordinates{(4.97367, 50)(5.01479, 50)};
+    \draw[dotted] (axis cs:4.97367,49) -- (axis cs: 4.97367, 50);
+    %5.01479
+    \addplot[blue,forget plot] coordinates{(5.01479, 51)(5.04024, 51)};
+    \draw[dotted] (axis cs:5.01479,50) -- (axis cs: 5.01479, 51);
+    %5.04024
+    \addplot[blue,forget plot] coordinates{(5.04024, 52)(5.05053, 52)};
+    \draw[dotted] (axis cs:5.04024,51) -- (axis cs: 5.04024, 52);
+    %5.05053
+    \addplot[blue,forget plot] coordinates{(5.05053, 53)(5.06721, 53)};
+    \draw[dotted] (axis cs:5.05053,52) -- (axis cs: 5.05053, 53);
+    %5.06721
+    \addplot[blue,forget plot] coordinates{(5.06721, 54)(5.09296, 54)};
+    \draw[dotted] (axis cs:5.06721,53) -- (axis cs: 5.06721, 54);
+    %5.09296
+    \addplot[blue,forget plot] coordinates{(5.09296, 55)(5.14038, 55)};
+    \draw[dotted] (axis cs:5.09296,54) -- (axis cs: 5.09296, 55);
+    %5.14038
+    \addplot[blue,forget plot] coordinates{(5.14038, 56)(5.14454, 56)};
+    \draw[dotted] (axis cs:5.14038,55) -- (axis cs: 5.14038, 56);
+    %5.14454
+    \addplot[blue,forget plot] coordinates{(5.14454, 57)(5.1917, 57)};
+    \draw[dotted] (axis cs:5.14454,56) -- (axis cs: 5.14454, 57);
+    %5.1917
+    \addplot[blue,forget plot] coordinates{(5.1917, 58)(5.37826, 58)};
+    \draw[dotted] (axis cs:5.1917,57) -- (axis cs: 5.1917, 58);
+    %5.37826
+    \addplot[blue,forget plot] coordinates{(5.37826, 59)(5.38223, 59)};
+    \draw[dotted] (axis cs:5.37826,58) -- (axis cs: 5.37826, 59);
+    %5.38223
+    \addplot[blue,forget plot] coordinates{(5.38223, 60)(5.49433, 60)};
+    \draw[dotted] (axis cs:5.38223,59) -- (axis cs: 5.38223, 60);
+    %5.49433
+    \addplot[blue,forget plot] coordinates{(5.49433, 61)(5.59523, 61)};
+    \draw[dotted] (axis cs:5.49433,60) -- (axis cs: 5.49433, 61);
+    %5.59523
+    \addplot[blue,forget plot] coordinates{(5.59523, 62)(5.65684, 62)};
+    \draw[dotted] (axis cs:5.59523,61) -- (axis cs: 5.59523, 62);
+    %5.65684
+    \addplot[blue,forget plot] coordinates{(5.65684, 63)(5.69119, 63)};
+    \draw[dotted] (axis cs:5.65684,62) -- (axis cs: 5.65684, 63);
+    %5.69119
+    \addplot[blue,forget plot] coordinates{(5.69119, 64)(5.7074, 64)};
+    \draw[dotted] (axis cs:5.69119,63) -- (axis cs: 5.69119, 64);
+    %5.7074
+    \addplot[blue,forget plot] coordinates{(5.7074, 65)(5.71321, 65)};
+    \draw[dotted] (axis cs:5.7074,64) -- (axis cs: 5.7074, 65);
+    %5.71321
+    \addplot[blue,forget plot] coordinates{(5.71321, 66)(5.74344, 66)};
+    \draw[dotted] (axis cs:5.71321,65) -- (axis cs: 5.71321, 66);
+    %5.74344
+    \addplot[blue,forget plot] coordinates{(5.74344, 67)(5.75382, 67)};
+    \draw[dotted] (axis cs:5.74344,66) -- (axis cs: 5.74344, 67);
+    %5.75382
+    \addplot[blue,forget plot] coordinates{(5.75382, 68)(5.87535, 68)};
+    \draw[dotted] (axis cs:5.75382,67) -- (axis cs: 5.75382, 68);
+    %5.87535
+    \addplot[blue,forget plot] coordinates{(5.87535, 69)(5.90114, 69)};
+    \draw[dotted] (axis cs:5.87535,68) -- (axis cs: 5.87535, 69);
+    %5.90114
+    \addplot[blue,forget plot] coordinates{(5.90114, 70)(5.91929, 70)};
+    \draw[dotted] (axis cs:5.90114,69) -- (axis cs: 5.90114, 70);
+    %5.91929
+    \addplot[blue,forget plot] coordinates{(5.91929, 71)(5.93672, 71)};
+    \draw[dotted] (axis cs:5.91929,70) -- (axis cs: 5.91929, 71);
+    %5.93672
+    \addplot[blue,forget plot] coordinates{(5.93672, 72)(6.00166, 72)};
+    \draw[dotted] (axis cs:5.93672,71) -- (axis cs: 5.93672, 72);
+    %6.00166
+    \addplot[blue,forget plot] coordinates{(6.00166, 73)(6.09481, 73)};
+    \draw[dotted] (axis cs:6.00166,72) -- (axis cs: 6.00166, 73);
+    %6.09481
+    \addplot[blue,forget plot] coordinates{(6.09481, 74)(6.12288, 74)};
+    \draw[dotted] (axis cs:6.09481,73) -- (axis cs: 6.09481, 74);
+    %6.12288
+    \addplot[blue,forget plot] coordinates{(6.12288, 75)(6.13229, 75)};
+    \draw[dotted] (axis cs:6.12288,74) -- (axis cs: 6.12288, 75);
+    %6.13229
+    \addplot[blue,forget plot] coordinates{(6.13229, 76)(6.15318, 76)};
+    \draw[dotted] (axis cs:6.13229,75) -- (axis cs: 6.13229, 76);
+    %6.15318
+    \addplot[blue,forget plot] coordinates{(6.15318, 77)(6.49903, 77)};
+    \draw[dotted] (axis cs:6.15318,76) -- (axis cs: 6.15318, 77);
+    %6.49903
+    \addplot[blue,forget plot] coordinates{(6.49903, 78)(6.65007, 78)};
+    \draw[dotted] (axis cs:6.49903,77) -- (axis cs: 6.49903, 78);
+    %6.65007
+    \addplot[blue,forget plot] coordinates{(6.65007, 79)(6.85014, 79)};
+    \draw[dotted] (axis cs:6.65007,78) -- (axis cs: 6.65007, 79);
+    %6.85014
+    \addplot[blue,forget plot] coordinates{(6.85014, 80)(6.86014, 80)};
+    \draw[dotted] (axis cs:6.85014,79) -- (axis cs: 6.85014, 80);
+    %6.86014
+    \addplot[blue,forget plot] coordinates{(6.86014, 81)(6.98181, 81)};
+    \draw[dotted] (axis cs:6.86014,80) -- (axis cs: 6.86014, 81);
+    %6.98181
+    \addplot[blue,forget plot] coordinates{(6.98181, 82)(7.20432, 82)};
+    \draw[dotted] (axis cs:6.98181,81) -- (axis cs: 6.98181, 82);
+    %7.20432
+    \addplot[blue,forget plot] coordinates{(7.20432, 83)(7.2094, 83)};
+    \draw[dotted] (axis cs:7.20432,82) -- (axis cs: 7.20432, 83);
+    %7.2094
+    \addplot[blue,forget plot] coordinates{(7.2094, 84)(7.30836, 84)};
+    \draw[dotted] (axis cs:7.2094,83) -- (axis cs: 7.2094, 84);
+    %7.30836
+    \addplot[blue,forget plot] coordinates{(7.30836, 85)(7.39552, 85)};
+    \draw[dotted] (axis cs:7.30836,84) -- (axis cs: 7.30836, 85);
+    %7.39552
+    \addplot[blue,forget plot] coordinates{(7.39552, 86)(7.40688, 86)};
+    \draw[dotted] (axis cs:7.39552,85) -- (axis cs: 7.39552, 86);
+    %7.40688
+    \addplot[blue,forget plot] coordinates{(7.40688, 87)(7.42305, 87)};
+    \draw[dotted] (axis cs:7.40688,86) -- (axis cs: 7.40688, 87);
+    %7.42305
+    \addplot[blue,forget plot] coordinates{(7.42305, 88)(7.4921, 88)};
+    \draw[dotted] (axis cs:7.42305,87) -- (axis cs: 7.42305, 88);
+    %7.4921
+    \addplot[blue,forget plot] coordinates{(7.4921, 89)(7.49466, 89)};
+    \draw[dotted] (axis cs:7.4921,88) -- (axis cs: 7.4921, 89);
+    %7.49466
+    \addplot[blue,forget plot] coordinates{(7.49466, 90)(7.69063, 90)};
+    \draw[dotted] (axis cs:7.49466,89) -- (axis cs: 7.49466, 90);
+    %7.69063
+    \addplot[blue,forget plot] coordinates{(7.69063, 91)(7.694, 91)};
+    \draw[dotted] (axis cs:7.69063,90) -- (axis cs: 7.69063, 91);
+    %7.694
+    \addplot[blue,forget plot] coordinates{(7.694, 92)(7.83635, 92)};
+    \draw[dotted] (axis cs:7.694,91) -- (axis cs: 7.694, 92);
+    %7.83635
+    \addplot[blue,forget plot] coordinates{(7.83635, 93)(7.91892, 93)};
+    \draw[dotted] (axis cs:7.83635,92) -- (axis cs: 7.83635, 93);
+    %7.91892
+    \addplot[blue,forget plot] coordinates{(7.91892, 94)(8.20621, 94)};
+    \draw[dotted] (axis cs:7.91892,93) -- (axis cs: 7.91892, 94);
+    %8.20621
+    \addplot[blue,forget plot] coordinates{(8.20621, 95)(8.29379, 95)};
+    \draw[dotted] (axis cs:8.20621,94) -- (axis cs: 8.20621, 95);
+    %8.29379
+    \addplot[blue,forget plot] coordinates{(8.29379, 96)(8.38558, 96)};
+    \draw[dotted] (axis cs:8.29379,95) -- (axis cs: 8.29379, 96);
+    %8.38558
+    \addplot[blue,forget plot] coordinates{(8.38558, 97)(8.84879, 97)};
+    \draw[dotted] (axis cs:8.38558,96) -- (axis cs: 8.38558, 97);
+    %8.84879
+    \addplot[blue,forget plot] coordinates{(8.84879, 98)(9.00956, 98)};
+    \draw[dotted] (axis cs:8.84879,97) -- (axis cs: 8.84879, 98);
+    %9.00956
+    \addplot[blue,forget plot] coordinates{(9.00956, 99)(9.24935, 99)};
+    \draw[dotted] (axis cs:9.00956,98) -- (axis cs: 9.00956, 99);
+    %9.24935
+    \addplot[blue,forget plot] coordinates{(9.24935, 100)(11, 100)};
+    \draw[dotted] (axis cs:9.24935,99) -- (axis cs: 9.24935, 100);
+\end{axis}

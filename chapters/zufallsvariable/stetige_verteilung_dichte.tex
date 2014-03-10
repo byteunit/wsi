@@ -1,0 +1,26 @@
+{
+    \def\muval{0}
+    \def\sigmaval{1}
+
+    \begin{axis}[
+        domain=-4:4,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        legend pos=north west,
+        xlabel={x},
+        ylabel={},%TODO: was ist diese Achse?
+        samples=200,
+        height=6.5cm,
+        width=10cm,
+        clip=false]
+
+        \ifnum\pdfshellescape=1 %makro to check, if shellescape is set, to prevent errors from windows
+        \def\cdf(#1)(#2)(#3){1/2*(1+(erf((#3-#1)/(#2*sqrt(2)))))}
+        \addplot[smooth,red] gnuplot{1.00001*\cdf(\muval)(\sigmaval)(x)}; %multiply with 1.00001 is necessary, otherwise it would not be plotted
+        \addlegendentry[align=left]{Verteilung v. $\mathcal N(\muval,\sigmaval)$};
+        \fi
+
+        \addplot[thin, smooth, blue] {normal_distribution(\muval,\sigmaval,x)};
+        \addlegendentry[align=left]{Dichte v. $\mathcal{N}(\muval, \sigmaval)$};
+    \end{axis}
+}

@@ -1,0 +1,71 @@
+{
+\def\muval{0}
+\def\sigmaval{1}
+\def\tauval{1.96}
+\def\beginval{-3}
+\def\endval{3}
+
+\pgfmathsetmacro{\muPlusTau}{\muval+\tauval}
+\pgfmathsetmacro{\muMinusTau}{\muval-\tauval}
+
+\begin{axis}[
+    domain=\beginval:\endval,
+    axis x line=bottom, % no box around the plot, only x and y axis
+    axis y line=left, % the * would suppress the arrow tips
+    xtick={-3,-2,-1,0,1,2,3},
+    samples=50,
+    height=5cm,
+    width=10cm,
+    clip=false
+]
+
+% Fill curve-part right
+\addplot [
+    fill=brown!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\muPlusTau:\endval
+] {normal_distribution(\muval,\sigmaval,x)} \closedcycle;
+
+% Fill curve-part left
+\addplot [
+    fill=brown!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\beginval:\muMinusTau
+] {normal_distribution(\muval,\sigmaval,x)} \closedcycle;
+
+% Fill curve-part middle
+\addplot [
+    fill=blue!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\muMinusTau:\muPlusTau
+] {normal_distribution(\muval,\sigmaval,x)} \closedcycle;
+
+% Draw curves
+\addplot [thin, smooth, color=green, name path global=plot] {normal_distribution(\muval,\sigmaval,x)};
+
+%find intersection with normal_distribution on theta=0
+\node[above=225] (Ref) at (axis cs:\muval,0) {95\%};
+
+%find intersection with normal_distribution on theta=\muval+\tauval
+\node[coordinate] (Ref) at (axis cs:\muPlusTau,0) {};
+\path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+\path [name intersections={of=plot and RefPath}];
+\coordinate (I2)  at (intersection-1);
+%draw line to intersection on theta=\muPlusTau
+\draw [ultra thick,dashed,red] ({rel axis cs:0,0}-|Ref) -- (I2)
+    node [right=12,black] {2.5\%};
+
+%find intersection with normal_distribution on theta=\muval-\tauval
+\node[coordinate] (Ref) at (axis cs:\muMinusTau,0) {};
+\path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+\path [name intersections={of=plot and RefPath}];
+\coordinate (I3)  at (intersection-1);
+%draw line to intersection on theta=\muval-\tauval
+\draw [ultra thick,dashed,red] ({rel axis cs:0,0}-|Ref) -- (I3)
+    node [left=12,black] {2.5\%};
+
+\end{axis}
+}

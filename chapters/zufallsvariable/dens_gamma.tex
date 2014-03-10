@@ -1,0 +1,34 @@
+{
+    \begin{axis}[
+        domain=0:\xmax,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        ylabel={$f(x)$},
+        xlabel={$x$},
+        legend pos=north east,
+        samples=50,
+        height=6.5cm,
+        width=14cm,
+        clip=false]
+
+        \addplot[thin, smooth, red] {\lvala^\avala/factorial(\avala-1)*x^(\avala-1)*exp(-\lvala*x)};
+        \addlegendentry[align=left]{\footnotesize{$\Gamma(\avala,\lvala)$}};
+
+
+        \addplot[thin, smooth, green] {\lvalb^\avalb/factorial(\avalb-1)*x^(\avalb-1)*exp(-\lvalb*x)};
+        \addlegendentry[align=left]{\footnotesize{$\Gamma(\avalb,\lvalb)$}};
+
+
+        \addplot[thin, smooth, blue] {\lvalc^\avalc/factorial(\avalc-1)*x^(\avalc-1)*exp(-\lvalc*x)};
+        \addlegendentry[align=left]{\footnotesize{$\Gamma(\avalc,\lvalc)$}};
+
+
+        \addplot[thin, smooth, brown] {\lvald^\avald/factorial(\avald-1)*x^(\avald-1)*exp(-\lvald*x)};
+        \addlegendentry[align=left]{\footnotesize{$\Gamma(\avald,\lvald)$}};
+
+
+        \addplot[thin, smooth, orange] {\lvale^\avale/factorial(\avale-1)*x^(\avale-1)*exp(-\lvale*x)};
+        \addlegendentry[align=left]{\footnotesize{$\Gamma(\avale,\lvale)$}};
+
+    \end{axis}
+}

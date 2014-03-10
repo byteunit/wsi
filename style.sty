@@ -1,0 +1,178 @@
+\usepackage[utf8]{inputenc}
+\usepackage[automark,headsepline]{scrpage2}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{graphics}
+\usepackage{ngerman}
+\usepackage[ngerman]{babel}     %added shit because of markus
+\usepackage{amsfonts}
+\usepackage{cite}
+\usepackage{amssymb}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{epigraph}
+\usepackage{enumerate}
+\usepackage{subfigure}
+\usepackage[pdftex]{hyperref}
+\usepackage{soulutf8}
+\usepackage{exercise}
+\usepackage{textcomp}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\usepackage{ulem}
+\usepackage{pgffor}
+\usepackage{tikz}
+\usepackage{cancel}
+\usepackage{sectsty}
+\usepackage{ifthen}
+\usepackage{diagbox}
+\usepackage{xcolor,colortbl}
+\usepackage{hhline}
+\usepackage{adjustbox}
+
+\chapterfont{\color{blue}}
+%\sectionfont{\color{cyan}}
+
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{footnote}
+\usepackage{pgf}
+\usepackage{tikz-qtree}
+
+%\pgfplotsset{compat=newest}
+\usetikzlibrary{shapes,backgrounds}
+\usetikzlibrary{shadows}
+\usetikzlibrary{automata,arrows,chains,shapes.misc,scopes,petri}
+\usetikzlibrary{circuits.logic.US,circuits.logic.IEC,positioning}
+\usetikzlibrary{intersections}
+
+
+\def\euler{2.78}%
+
+%declare pgfmathfunctions for use in tikz
+\pgfmathdeclarefunction{binom}{2}{%binom(n,k)
+    \pgfmathparse{factorial(#1)/(factorial(#2)*factorial(#1-#2))}%
+}
+
+\pgfmathdeclarefunction{binomial_distribution}{3}{%binomial_distribution(n,k,p)
+    \pgfmathparse{#3^#2*(1-#3)^(#1-#2)*binom(#1,#2)}%
+}
+
+\pgfmathdeclarefunction{normal_distribution}{3}{%normal_distribution(mu,sigma,x)
+  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((#3-#1)^2)/(2*#2^2))}%
+}
+
+\pgfmathdeclarefunction{poisson_distribution}{2}{%poisson_distribution(lambda,x)
+    \pgfmathparse{1/factorial(#2)*#1^#2*\euler^(-#1)}
+}
+
+%declare pgfmath-functions for use in the document, to calc values
+\newcommand{\binomialDistributionValue}[4][2]{
+    %use as: \binomialDistributionValue[precision]{n}{k}{p}
+    % or as: \binomialDistributionValue{n}{k}{p}...with default precision=2
+    \pgfkeys{/pgf/fpu=true}
+    \pgfkeys{/pgf/number format/.cd,fixed,precision=#1}
+    \pgfmathparse{binomial_distribution(#2,#3,#4)}
+    \pgfmathprintnumber\pgfmathresult
+    \pgfkeys{/pgf/fpu=false}
+}
+
+% defines the continuity(Stetigkeitsstelle) and the discontinuityblue(Unstetigkeitsstelle)
+\pgfplotsset{continuityblue/.style={color=blue,only marks,mark=*}}
+\pgfplotsset{discontinuityblue/.style={color=blue,fill=white,only marks,mark=*}}
+
+\pgfplotsset{continuityred/.style={color=red,only marks,mark=*}}
+\pgfplotsset{discontinuityred/.style={color=red,fill=white,only marks,mark=*}}
+
+\pgfplotsset{continuitygreen/.style={color=green,only marks,mark=*}}
+\pgfplotsset{discontinuitygreen/.style={color=green,fill=white,only marks,mark=*}}
+
+\pgfplotsset{continuityorange/.style={color=orange,only marks,mark=*}}
+\pgfplotsset{discontinuityorange/.style={color=orange,fill=white,only marks,mark=*}}
+
+
+\tikzset{
+    discontinuityred/.style={fill=white,circle,scale=0.4,draw=red},
+    continuityred/.style={color=red,fill=red,circle,scale=0.4,draw=red}
+}
+
+
+
+
+
+% THEOREMS AND OTHER DESCRIPTION THINGS
+\newmdtheoremenv[leftline=false,rightline=false,linecolor=blue!50,linewidth=3]{satz}{Satz}[chapter]
+\newmdtheoremenv{hilfssatz}{Hilfssatz}[chapter]
+\newmdtheoremenv[backgroundcolor=yellow!18,hidealllines=true]{definition}{Definition}[chapter]
+\newmdtheoremenv[middlelinecolor=none,tikzsetting={draw=green,line width=3pt,dashed}]{bsp}{Beispiel}[chapter]
+\newcommand\attention[1]{\begin{mdframed}[topline=false,bottomline=false,align=center,linecolor=red,linewidth=2pt]\textcolor{red}{\textbf{ACHTUNG}}: \textit{#1}\end{mdframed}}
+
+%prevent pagebreaks in satz
+\AtBeginEnvironment{satz}{\begin{minipage}{\textwidth}}
+\AtEndEnvironment{satz}{\end{minipage}}
+
+% needed, to alternate the colors of uebsps
+\newcounter{uebsp_color_cnt}
+\newcommand\getuebspcolor{\ifodd\value{uebsp_color_cnt}violet!50\else orange!50\fi} 
+\newenvironment{uebsp}
+    {
+        \stepcounter{uebsp_color_cnt}
+        \begin{mdframed}[topline=false,bottomline=false,align=center,linecolor=\getuebspcolor,linewidth=2pt]
+    }
+    {\end{mdframed}}
+\newenvironment{uebsp_theory}
+    {\begin{mdframed}[middlelinecolor=none,hidealllines=false,tikzsetting={draw=black!40,line width=3pt,dashed}]}
+    {\end{mdframed}}
+
+
+\newcommand{\BIGOP}[1]{\mathop{\mathchoice%
+{\raise-0.22em\hbox{\huge $#1$}}%
+{\raise-0.05em\hbox{\Large $#1$}}{\hbox{\large $#1$}}{#1}}}
+\newcommand{\bigtimes}{\BIGOP{\times}}
+% nur fuer Bigboxplus andere Korrekturen
+\newcommand{\BIGboxplus}{\mathop{\mathchoice%
+{\raise-0.35em\hbox{\huge $\boxplus$}}%
+{\raise-0.15em\hbox{\Large $\boxplus$}}{\hbox{\large $\boxplus$}}{\boxplus}}}
+
+\pagestyle{headings}
+%\renewcommand{\contentsname}{Inhalt}
+
+\newcommand{\reference}[3]{#1(siehe #2 \ref{#3})}
+
+\def\alphnumeral#1{%
+  \ifcase#1\or a\or b\or c\or d\or e\or f\or g\or h\or i\or j\or
+     k\or l\or m\or n\or o\or p\or q\or r\or s\or t\or u\or v\or w\or x\or y\or z\fi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%EXERCISE%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{ExercPage}
+\newcommand{\exercPage}{\stepcounter{ExercPage}%increment
+            \setcounter{Exercise}{0}}
+\newcommand{\newExercPage}{\exercPage}
+\renewcommand{\theExercise}{\theExercPage.\arabic{Exercise}}
+\renewcommand{\QuestionNB}{(\alph{Question})}   %change Question-sign to alph
+
+
+\ListOfExerciseInToc
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%Translations%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\ExerciseName{Beispiel}
+\def\AnswerName{Lösung zu Beispiel}
+
+\columnsep20pt
+
+\newcommand{\executeiffilenewer}[3]{%
+    \ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+        {\pdffilemoddate{#2}}>0%
+            {\immediate\write18{#3}}\fi%
+        }
+\newcommand{\includesvg}[1]{%
+    \executeiffilenewer{#1.svg}{#1.pdf}%
+    {inkscape -z -D --file=#1.svg %
+        --export-pdf=#1.pdf --export-latex}%
+    \input{#1.pdf_tex}%
+}
+
+% keine Hurenkinder und keine Schusterjungen!!!
+\clubpenalty10000
+\widowpenalty10000
+\displaywidowpenalty=10000

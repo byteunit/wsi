@@ -1,0 +1,18 @@
+\begin{axis}[
+    domain=-4:4,
+    axis x line=bottom, % no box around the plot, only x and y axis
+    axis y line=left, % the * would suppress the arrow tips
+    ylabel={$\varphi_{\muval,\sigmaval^2}(x)$},
+    xlabel={$x$},
+    ymax=1,
+    legend pos=north east,
+    samples=50,
+    height=5cm,
+    width=7cm,
+    clip=false]
+
+    \addplot[thin, smooth, blue] {normal_distribution(\muval,\sigmaval,x)};
+    \addlegendentry[align=left]{$\mathcal{N}(\muval, \sigmaval)$};
+
+    \draw [thick,dashed,black] (current axis.south-|{axis cs:\muval,0}) -- (current axis.north-|{axis cs:\muval,0}) node [above] {$\mu=\muval$};
+\end{axis}

@@ -1,0 +1,109 @@
+{
+\def\muval{\valoverliney}
+\def\sigmaval{\valvarianz}
+\def\tauval{1.96}
+\def\beginval{-2}
+\def\endval{12}
+\begin{axis}[
+    domain=\beginval:\endval,
+    axis x line=bottom, % no box around the plot, only x and y axis
+    axis y line=left, % the * would suppress the arrow tips
+    xtick={0,2,4,6,8,10},
+    ylabel={Wahrscheinlichkeit $p$},
+    y tick label style={/pgf/number format/fixed},
+    samples=50,
+    height=5cm,
+    width=10cm,
+    clip=false
+]
+
+% Fill curve-part left
+\addplot [
+    fill=brown!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\beginval:\ttwenty
+] {normal_distribution(\muval,\sigmaval,x)} \closedcycle;
+
+% Fill curve-part left
+\addplot [
+    fill=red!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\ttwenty:\tfourty
+] {normal_distribution(\muval,\sigmaval,x)} \closedcycle;
+
+% Fill curve-part middle
+\addplot [
+    fill=yellow!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\tfourty:\tsixty
+] {normal_distribution(\muval,\sigmaval,x)} \closedcycle;
+
+% Fill curve-part middle
+\addplot [
+    fill=orange!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\tsixty:\teighty
+] {normal_distribution(\muval,\sigmaval,x)} \closedcycle;
+
+% Fill curve-part middle
+\addplot [
+    fill=blue!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\teighty:\endval
+] {normal_distribution(\muval,\sigmaval,x)} \closedcycle;
+
+% Draw curves
+\addplot [thin, smooth, color=green, name path global=plot] {normal_distribution(\muval,\sigmaval,x)};
+
+%find intersection with normal_distribution on theta=\muval-\tauval
+\node[coordinate] (Ref) at (axis cs:\ttwenty,0) {};
+\path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+\path [name intersections={of=plot and RefPath}];
+\coordinate (I3)  at (intersection-1);
+%draw line to intersection on theta=\muval-\tauval
+\draw [ultra thick,dashed,red] (I3) -- ({rel axis cs:0,0}-|Ref)
+    node [above left,black] {$k_1$};
+
+%find intersection with normal_distribution on theta=\muval-\tauval
+\node[coordinate] (Ref) at (axis cs:\ttwenty,0) {};
+\path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+\path [name intersections={of=plot and RefPath}];
+\coordinate (I3)  at (intersection-1);
+%draw line to intersection on theta=\muval-\tauval
+\draw [ultra thick,dashed,red] (I3) -- ({rel axis cs:0,0}-|Ref)
+    node [above right,black] {$k_2$};
+
+%find intersection with normal_distribution on theta=\muval-\tauval
+\node[coordinate] (Ref) at (axis cs:\tfourty,0) {};
+\path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+\path [name intersections={of=plot and RefPath}];
+\coordinate (I3)  at (intersection-1);
+%draw line to intersection on theta=\muval-\tauval
+\draw [ultra thick,dashed,red] (I3) -- ({rel axis cs:0,0}-|Ref)
+    node [above right,black] {$k_3$};
+
+%find intersection with normal_distribution on theta=\muval-\tauval
+\node[coordinate] (Ref) at (axis cs:\tsixty,0) {};
+\path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+\path [name intersections={of=plot and RefPath}];
+\coordinate (I3)  at (intersection-1);
+%draw line to intersection on theta=\muval-\tauval
+\draw [ultra thick,dashed,red] (I3) -- ({rel axis cs:0,0}-|Ref)
+    node [above right,black] {$k_4$};
+
+%find intersection with normal_distribution on theta=\muval-\tauval
+\node[coordinate] (Ref) at (axis cs:\teighty,0) {};
+\path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+\path [name intersections={of=plot and RefPath}];
+\coordinate (I3)  at (intersection-1);
+%draw line to intersection on theta=\muval-\tauval
+\draw [ultra thick,dashed,red] (I3) -- ({rel axis cs:0,0}-|Ref)
+    node [above right,black] {$k_5$};
+
+\end{axis}
+}

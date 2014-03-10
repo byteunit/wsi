@@ -1,0 +1,67 @@
+{
+    \begin{axis}[
+        domain=-4:4,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        legend pos=south east,
+        ymin=0,
+        ymax=1,
+        xlabel={k},
+        ylabel={p},%TODO: was ist diese Achse?
+        samples=200,
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \pgfkeys{/pgf/fpu=true}
+        \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+        \def\x{1}
+        \def\nextx{2}
+        \pgfmathparse{\pvala*(1-\pvala)^(\x-1)}
+        \xdef\tvala{\pgfmathresult}
+        \addplot[blue,forget plot] coordinates{(\x,\tvala)(\nextx,\tvala)};
+        \addplot[continuityblue] coordinates{(\x,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal G(\pvala)$}};
+
+        \pgfmathparse{\pvalb*(1-\pvalb)^(\x-1)}
+        \xdef\tvalb{\pgfmathresult}
+        \addplot[red,forget plot] coordinates{(\x,\tvalb)(\nextx,\tvalb)};
+        \addplot[continuityred] coordinates{(\x,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal G(\pvalb)$}};
+
+        \pgfmathparse{\pvalc*(1-\pvalc)^(\x-1)}
+        \xdef\tvalc{\pgfmathresult}
+        \addplot[green,forget plot] coordinates{(\x,\tvalc)(\nextx,\tvalc)};
+        \addplot[continuitygreen] coordinates{(\x,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal G(\pvalc)$}};
+
+        \foreach \x in {2,...,\nval} {
+            \pgfkeys{/pgf/fpu=false}
+            \pgfmathtruncatemacro{\nextx}{\x+1}
+            \pgfkeys{/pgf/fpu=true}
+            \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+            \pgfmathparse{\tvala+\pvala*(1-\pvala)^(\x-1)}
+            \xdef\tvala{\pgfmathresult}
+            \addplot[blue,forget plot] coordinates{(\x,\tvala)(\nextx,\tvala)};
+            \addplot[continuityblue,forget plot] coordinates{(\x,\tvala)};
+
+            \pgfmathparse{\tvalb+\pvalb*(1-\pvalb)^(\x-1)}
+            \xdef\tvalb{\pgfmathresult}
+            \addplot[red,forget plot] coordinates{(\x,\tvalb)(\nextx,\tvalb)};
+            \addplot[continuityred,forget plot] coordinates{(\x,\tvalb)};
+
+            \pgfmathparse{\tvalc+\pvalc*(1-\pvalc)^(\x-1)}
+            \xdef\tvalc{\pgfmathresult}
+            \addplot[green,forget plot] coordinates{(\x,\tvalc)(\nextx,\tvalc)};
+            \addplot[continuitygreen,forget plot] coordinates{(\x,\tvalc)};
+        }
+
+
+
+        \pgfkeys{/pgf/fpu=false}
+
+
+    \end{axis}
+}

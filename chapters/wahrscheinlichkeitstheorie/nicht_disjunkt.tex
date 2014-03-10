@@ -1,0 +1,14 @@
+{
+    \def\firstcircle{(0,0) circle (1.25cm)}
+    \def\secondcircle{(2.2,0) circle (1.25cm)}
+
+    \fill[red!25] \firstcircle;
+    \fill[blue!25] \secondcircle;
+    \begin{scope}
+        \clip \firstcircle;
+        \fill[green!25] \secondcircle;
+    \end{scope}
+
+    \draw \firstcircle node {Ereignis $A$};
+    \draw \secondcircle node {Ereignis $B$};
+}

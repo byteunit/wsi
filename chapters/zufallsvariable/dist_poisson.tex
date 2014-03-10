@@ -1,0 +1,66 @@
+{
+    \begin{axis}[
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        legend pos=south east,
+        ymin=0,
+        ymax=1,
+        xlabel={k},
+        ylabel={p},%TODO: was ist diese Achse?
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \pgfkeys{/pgf/fpu=true}
+        \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+        \def\xval{0}
+        \def\nextx{1}
+
+        \pgfmathparse{1/factorial(\xval)*\lvala^\xval*\euler^(-\lvala)}        
+        \xdef\tvala{\pgfmathresult}
+        \addplot[blue,forget plot] coordinates{(\xval,\tvala)(\nextx,\tvala)};
+        \addplot[continuityblue] coordinates{(\xval,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal P(\lvala)$}};
+
+        \pgfmathparse{1/factorial(\xval)*\lvalb^\xval*\euler^(-\lvalb)}        
+        \xdef\tvalb{\pgfmathresult}
+        \addplot[red,forget plot] coordinates{(\xval,\tvalb)(\nextx,\tvalb)};
+        \addplot[continuityred] coordinates{(\xval,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal P(\lvalb)$}};
+
+        \pgfmathparse{1/factorial(\xval)*\lvalc^\xval*\euler^(-\lvalc)}
+        \xdef\tvalc{\pgfmathresult}
+        \addplot[green,forget plot] coordinates{(\xval,\tvalc)(\nextx,\tvalc)};
+        \addplot[continuitygreen] coordinates{(\xval,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal P(\lvalc)$}};
+
+        \foreach \xval in {1,...,\nval} {
+            \pgfkeys{/pgf/fpu=false}
+            \pgfmathtruncatemacro{\nextx}{\xval+1}
+            \pgfkeys{/pgf/fpu=true}
+            \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+            \pgfmathparse{\tvala+1/factorial(\xval)*\lvala^\xval*\euler^(-\lvala)}
+            \xdef\tvala{\pgfmathresult}
+            \addplot[blue,forget plot] coordinates{(\xval,\tvala)(\nextx,\tvala)};
+            \addplot[continuityblue,forget plot] coordinates{(\xval,\tvala)};
+
+            \pgfmathparse{\tvalb+1/factorial(\xval)*\lvalb^\xval*\euler^(-\lvalb)}
+            \xdef\tvalb{\pgfmathresult}
+            \addplot[red,forget plot] coordinates{(\xval,\tvalb)(\nextx,\tvalb)};
+            \addplot[continuityred,forget plot] coordinates{(\xval,\tvalb)};
+
+            \pgfmathparse{\tvalc+1/factorial(\xval)*\lvalc^\xval*\euler^(-\lvalc)}
+            \xdef\tvalc{\pgfmathresult}
+            \addplot[green,forget plot] coordinates{(\xval,\tvalc)(\nextx,\tvalc)};
+            \addplot[continuitygreen,forget plot] coordinates{(\xval,\tvalc)};
+        }
+
+
+
+        \pgfkeys{/pgf/fpu=false}
+
+
+    \end{axis}
+}

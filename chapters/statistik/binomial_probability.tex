@@ -1,0 +1,54 @@
+{
+    %note that you have to define \nval and \kval before!
+
+    \pgfmathtruncatemacro{\nvalB}{\nval*3}%save \nval*3 without floating-points to \nvalB
+
+    \pgfmathtruncatemacro{\kvalB}{\kval*3}
+
+    \begin{axis}[
+    domain=0:1,
+    ymax=0.21,%otherwise the intersection-point on theta=0.3 would fail
+    yticklabel style={/pgf/number format/fixed},%to prevent a axis-entry like 5*10^-2
+    axis x line=bottom, % no box around the plot, only x and y axis
+    axis y line=left, % the * suppresses the arrow tips
+    xtick={0.1,0.2,...,1},
+    xlabel={$\theta$},
+    ylabel={$P_\theta(Y=k)$},
+    samples=50,
+    height=5cm,
+    width=10cm,
+    clip=false]
+
+    \addplot[name path global=plot,thin, smooth, blue] {binomial_distribution(\nval,\kval,x)};
+    \addplot[name path global=plot2,thin, smooth, orange] {binomial_distribution(\nvalB,\kvalB,x)};
+    \addlegendentry[align=left]{$\mathcal{B}_{\nval,\kval}(\theta)$};
+    \addlegendentry[align=left]{$\mathcal{B}_{\nvalB,\kvalB}(\theta)$};
+
+
+    %find intersection with binomial_distribution on theta=0.3
+    \node[coordinate] (Ref) at (axis cs:0.3,0) {};
+    \path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+    \path [name intersections={of=plot and RefPath}];
+    \coordinate (I1)  at (intersection-1);
+    %draw line to intersection on theta=0.3
+    \draw [ultra thick,dashed,red] ({rel axis cs:0,0}-|Ref) -- (I1);
+
+
+    %find intersection with binomial_distribution on theta=0.4
+    \node[coordinate] (Ref) at (axis cs:0.4,0) {};
+    \path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+    \path [name intersections={of=plot and RefPath}];
+    \coordinate (I2)  at (intersection-1);
+    %draw line to intersection on theta=0.3
+    \draw [ultra thick,dashed,green] ({rel axis cs:0,0}-|Ref) -- (I2);
+
+
+    %find intersection with binomial_distribution on theta=0.5
+    \node[coordinate] (Ref) at (axis cs:0.5,0) {};
+    \path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+    \path [name intersections={of=plot and RefPath}];
+    \coordinate (I3)  at (intersection-1);
+    %draw line to intersection on theta=0.5
+    \draw [ultra thick,dashed,brown] ({rel axis cs:0,0}-|Ref) -- (I3);
+\end{axis}
+}

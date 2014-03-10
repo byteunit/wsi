@@ -1,0 +1,24 @@
+\begin{axis}[
+    domain=-4:4,
+    axis x line=bottom, % no box around the plot, only x and y axis
+    axis y line=left, % the * would suppress the arrow tips
+    ylabel={$\varphi_{\mu,\sigma}(x)$},
+    xlabel={$x$},
+    ymax=1,
+    legend pos=north east,
+    samples=50,
+    height=5cm,
+    width=7cm,
+    clip=false]
+
+    \addplot[thin, smooth, blue] {normal_distribution(\muvala,\sigmavala,x)};
+    \addlegendentry[align=left]{\footnotesize{$\mathcal{N}(\muvala, \sigmavala)$}};
+    \draw [thick,dashed,black] (current axis.south-|{axis cs:\muvala,0}) -- (current axis.north-|{axis cs:\muvala,0}) node [above] {\footnotesize{$\mu_1=\muvala$}};
+
+    \addplot[thin, smooth, green] {normal_distribution(\muvalb,\sigmavalb,x)};
+    \addlegendentry[align=left]{\footnotesize{$\mathcal{N}\left(\muvalb, \frac{1}{2}\right)$}};
+
+    \addplot[thin, smooth, red] {normal_distribution(\muvalc,\sigmavalc,x)};
+    \addlegendentry[align=left]{\footnotesize{$\mathcal{N}(\muvalc, \sigmavalc)$}};
+
+\end{axis}

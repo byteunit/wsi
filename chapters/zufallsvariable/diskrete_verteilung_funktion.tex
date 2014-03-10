@@ -1,0 +1,72 @@
+{
+    \begin{axis}[domain=0:8,
+            axis x line=bottom, % no box around the plot, only x and y axis
+            axis y line=left, % the * would suppress the arrow tips
+            xlabel=Anzahl der Köpfe,
+            ylabel=Wahrscheinlichkeit $p$,
+            legend style={at={(1.05,0.75)}},
+            xtick={0,1,...,4},
+            %legend pos=south east,
+            samples=50,
+            height=6cm,
+            width=10cm,
+            clip=false]
+            \def\pvala{0.125}
+            \def\pvalb{0.375}
+            \def\pvalc{0.375}
+            \def\pvald{0.125}
+
+            %calc missing values
+            \pgfmathsetmacro{\tvala}{\pvala}
+            \pgfmathsetmacro{\tvalb}{\pvala+\pvalb}
+            \pgfmathsetmacro{\tvalc}{\pvala+\pvalb+\pvalc}
+            \pgfmathsetmacro{\tvald}{\pvala+\pvalb+\pvalc+\pvald}
+
+            \addplot[blue] coordinates{(-1,0)(0,0)};
+            \addlegendentry[align=left]{Verteilungsfunktion};%TODO: add a better label
+            \addplot[blue,forget plot] coordinates{(0,\tvala)(1,\tvala)};
+            \addplot[blue,forget plot] coordinates{(1,\tvalb)(2,\tvalb)};
+            \addplot[blue,forget plot] coordinates{(2,\tvalc)(3,\tvalc)};
+            \addplot[blue,forget plot] coordinates{(3,1)(5,1)};
+
+            \draw[dotted] (axis cs:0,0) -- (axis cs:0,\tvala);
+            \draw[dotted] (axis cs:1,\tvala) -- (axis cs:1,\tvalb);
+            \draw[dotted] (axis cs:2,\tvalb) -- (axis cs:2,\tvalc);
+            \draw[dotted] (axis cs:3,\tvalc) -- (axis cs:3,1);
+            %\draw[dotted] (axis cs:4,\tvald) -- (axis cs:4,1);
+
+            \addplot[discontinuityblue,forget plot] coordinates{(0,0)
+                    (1,\tvala)
+                    (2,\tvalb)
+                    (3,\tvalc)};
+            \addplot[continuityblue,forget plot] coordinates{(0,\tvala)
+                    (1,\tvalb)
+                    (2,\tvalc)
+                    (3,1)};
+
+            \addplot[red] coordinates{(-1,0)(0,0)};
+            \addlegendentry[align=left]{Wahrsch.verteilung};%TODO: add better label
+            \addplot[red,forget plot] coordinates{(0,\pvala)(1,\pvala)};
+            \addplot[red,forget plot] coordinates{(1,\pvalb)(2,\pvalb)};
+            \addplot[red,forget plot] coordinates{(2,\pvalc)(3,\pvalc)};
+            \addplot[red,forget plot] coordinates{(3,\pvald)(4,\pvald)};
+            \addplot[red,forget plot] coordinates{(4,0)(5,0)};
+
+            \draw[dotted] (axis cs:0,0) -- (axis cs:0,\pvala);
+            \draw[dotted] (axis cs:1,\pvala) -- (axis cs:1,\pvalb);
+            %\draw[dotted] (axis cs:2,\pvalb) -- (axis cs:2,\pvalc);
+            \draw[dotted] (axis cs:3,\pvalc) -- (axis cs:3,\pvald);
+            \draw[dotted] (axis cs:4,\pvald) -- (axis cs:4,0);
+
+            \addplot[discontinuityred,forget plot] coordinates{(0,0)
+                    (1,\pvala)
+                    %(2,\pvalb)
+                    (3,\pvalc)
+                    (4,\pvald)};
+            \addplot[continuityred,forget plot] coordinates{(0,\pvala)
+                    (1,\pvalb)
+                    %(2,\pvalc)
+                    (3,\pvald)
+                    (4,0)};
+    \end{axis}
+}

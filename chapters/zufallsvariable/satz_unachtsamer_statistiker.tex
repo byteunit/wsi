@@ -1,0 +1,41 @@
+{
+    \def\gxx{0}
+    \def\gxy{2}
+
+    \def\xx{-1}
+    \def\xy{1}
+    \def\yx{1}
+    \def\yy{1}
+
+    \def\exx{-1}
+    \def\exy{-1}
+    \def\eyx{1}
+    \def\eyy{-1}
+
+    \def\fxx{-1}
+    \def\fxy{0}
+    \def\fyx{1}
+    \def\fyy{0}
+
+    \node (x) at (\xx,\xy){$x$};
+    \node (ex) at (\exx,\exy){$\mathbb E(x)$};
+    \node (y) at (\yx,\yy){$y$};
+    \node (ey) at (\eyx,\eyy){$\mathbb E(y)$};
+    \node (fx) at (\fxx,\fxy){$f_X$};
+    \node (fy) at (\fyx,\fyy){$f_Y$};
+    \node (gx) at (\gxx,\gxy){$g(X)$};
+
+    \draw[line width=2pt,->](x) -- (y);
+
+    \draw[->](x) -- (fx);
+    \draw[->](fx) -- (ex);
+
+    \draw[->](y) -- (fy);
+    \draw[->](fy) -- (ey);
+
+    \draw[red,line width=2pt,->](gx) -- (ey);
+    \draw[red,line width=2pt,->](fx) -- (ey);
+}    
+    %\node (sp) at (axis cs:20,0.05){};
+    %\node (down) at (axis cs:20,-0.1){};
+    %\draw[vecArrow](down)--(sp);

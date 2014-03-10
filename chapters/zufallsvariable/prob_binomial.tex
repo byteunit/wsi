@@ -1,0 +1,63 @@
+{
+    \def\pvala{0.5}
+    \def\pvalb{0.25}
+    \def\pvalc{0.75}
+    \def\pvald{0.9}
+
+    \pgfmathtruncatemacro{\maxval}{\nval}
+
+    \begin{axis}[
+        domain=-4:4,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        legend style={at={(0.67\nval,1.2)}},
+        xlabel={k},
+        ylabel={p},%TODO: was ist diese Achse?
+        samples=200,
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \pgfkeys{/pgf/fpu=true}
+        \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+        \def\x{1}
+        \pgfmathparse{binomial_distribution(\nval,\x,\pvalb)}
+        \addplot[continuityblue] coordinates{(\x,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal B(k|\nval,\pvalb)$}};
+
+        \pgfmathparse{binomial_distribution(\nval,\x,\pvalc)}
+        \addplot[continuitygreen] coordinates{(\x,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal B(k|\nval,\pvalc)$}};
+
+        \pgfmathparse{binomial_distribution(\nval,\x,\pvald)}
+        \addplot[continuityorange] coordinates{(\x,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal B(k|\nval,\pvald)$}};
+
+        \pgfmathparse{binomial_distribution(\nval,\x,\pvala)}
+        \addplot[continuityred] coordinates{(\x,\pgfmathresult)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal B(k|\nval,\pvala)$}};
+
+        \foreach \x in {2,...,\maxval} {
+            \pgfkeys{/pgf/fpu=false}
+            \pgfmathtruncatemacro{\nextx}{\x+1}
+            \pgfkeys{/pgf/fpu=true}
+            \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+            \pgfmathparse{binomial_distribution(\nval,\x,\pvalb)}
+            \addplot[continuityblue,forget plot] coordinates{(\x,\pgfmathresult)};
+
+            \pgfmathparse{binomial_distribution(\nval,\x,\pvalc)}
+            \addplot[continuitygreen,forget plot] coordinates{(\x,\pgfmathresult)};
+
+            \pgfmathparse{binomial_distribution(\nval,\x,\pvald)}
+            \addplot[continuityorange,forget plot] coordinates{(\x,\pgfmathresult)};
+
+            \pgfmathparse{binomial_distribution(\nval,\x,\pvala)}
+            \addplot[continuityred,forget plot] coordinates{(\x,\pgfmathresult)};
+        }
+        \pgfkeys{/pgf/fpu=false}
+
+
+    \end{axis}
+}

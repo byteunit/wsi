@@ -1,0 +1,25 @@
+{
+    \def\elemxa{0.8}
+    \def\elemxb{2.2}
+    \def\elemya{0.8}
+    \def\elemyb{2.2}
+
+    \def\minx{0}
+    \def\maxx{3}
+    \def\miny{0}
+    \def\maxy{3}
+
+    \def\firstrect{(\minx,\miny) rectangle (\maxx,\maxy)}
+    \def\secondrect{(\elemxa,\elemya) rectangle (\elemxb,\elemyb)}
+
+    \fill[red!25] \secondrect;
+
+    \draw[dashed] (\minx,\elemya) node[left]{$a_2$} -- (\elemxa,\elemya);
+    \draw[dashed] (\minx,\elemyb) node[left]{$b_2$} -- (\elemxa,\elemyb);
+
+    \draw[dashed] (\elemxa,\miny) node[below]{$a_1$} -- (\elemxa,\elemya);
+    \draw[dashed] (\elemxb,\miny) node[below]{$b_1$} -- (\elemxb,\elemyb);
+
+    \draw[black] \secondrect;
+    \draw[black] \firstrect;
+}

@@ -1,0 +1,81 @@
+{
+    \def\pvala{0.5}
+    \def\pvalb{0.25}
+    \def\pvalc{0.75}
+    \def\pvald{0.9}
+
+    \pgfmathtruncatemacro{\maxval}{\nval}
+
+    \begin{axis}[
+        domain=-4:4,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        legend pos=north west,
+        xlabel={k},
+        ylabel={p},%TODO: was ist diese Achse?
+        samples=200,
+        height=5cm,
+        width=7cm,
+        clip=false]
+
+        \pgfkeys{/pgf/fpu=true}
+        \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+        \def\x{1}
+        \def\nextx{2}
+        %\foreach \x/\y [remember=\x as \lastx (initially A)] in {B/2,C/3,D/4,E/5}
+        \pgfmathparse{binomial_distribution(\nval,\x,\pvalb)}
+        \xdef\tvalb{\pgfmathresult}
+        \addplot[blue,forget plot] coordinates{(\x,\tvalb)(\nextx,\tvalb)};
+        \addplot[continuityblue] coordinates{(\x,\tvalb)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal B(k|\nval,\pvalb)$}};
+
+        \pgfmathparse{binomial_distribution(\nval,\x,\pvalc)}
+        \xdef\tvalc{\pgfmathresult}
+        \addplot[green,forget plot] coordinates{(\x,\tvalc)(\nextx,\tvalc)};
+        \addplot[continuitygreen] coordinates{(\x,\tvalc)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal B(k|\nval,\pvalc)$}};
+
+        \pgfmathparse{binomial_distribution(\nval,\x,\pvald)}
+        \xdef\tvald{\pgfmathresult}
+        \addplot[orange,forget plot] coordinates{(\x,\tvald)(\nextx,\tvald)};
+        \addplot[continuityorange] coordinates{(\x,\tvald)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal B(k|\nval,\pvald)$}};
+
+        \pgfmathparse{binomial_distribution(\nval,\x,\pvala)}
+        \xdef\tvala{\pgfmathresult}
+        \addplot[red,forget plot] coordinates{(\x,\tvala)(\nextx,\tvala)};
+        \addplot[continuityred] coordinates{(\x,\tvala)};
+        \addlegendentry[align=left]{\scriptsize{$\mathcal B(k|\nval,\pvala)$}};
+
+        \foreach \x [remember=\x as \lastx (initially 0)] in {2,...,\maxval} {
+            \pgfkeys{/pgf/fpu=false}
+            \pgfmathtruncatemacro{\nextx}{\x+1}
+            \pgfkeys{/pgf/fpu=true}
+            \pgfkeys{/pgf/number format/.cd,fixed,precision=5}
+
+            \pgfmathparse{\tvalb+binomial_distribution(\nval,\x,\pvalb)}
+            \xdef\tvalb{\pgfmathresult}
+            \addplot[blue,forget plot] coordinates{(\x,\tvalb)(\nextx,\tvalb)};
+            \addplot[continuityblue,forget plot] coordinates{(\x,\tvalb)};
+
+            \pgfmathparse{\tvalc+binomial_distribution(\nval,\x,\pvalc)}
+            \xdef\tvalc{\pgfmathresult}
+            \addplot[green,forget plot] coordinates{(\x,\tvalc)(\nextx,\tvalc)};
+            \addplot[continuitygreen,forget plot] coordinates{(\x,\tvalc)};
+
+            \pgfmathparse{\tvald+binomial_distribution(\nval,\x,\pvald)}
+            \xdef\tvald{\pgfmathresult}
+            \addplot[orange,forget plot] coordinates{(\x,\tvald)(\nextx,\tvald)};
+            \addplot[continuityorange,forget plot] coordinates{(\x,\tvald)};
+
+            \pgfmathparse{\tvala+binomial_distribution(\nval,\x,\pvala)}
+            \xdef\tvala{\pgfmathresult}
+            \addplot[red,forget plot] coordinates{(\x,\tvala)(\nextx,\tvala)};
+            \addplot[continuityred,forget plot] coordinates{(\x,\tvala)};
+        }
+        \pgfkeys{/pgf/fpu=false}
+
+
+    \end{axis}
+}

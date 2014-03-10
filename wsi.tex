@@ -1,0 +1,75 @@
+\documentclass{scrbook}
+\usepackage{makeidx}
+\usepackage{style}
+
+\pagestyle{scrheadings}
+\usepackage[
+toc,          %go to table of contents
+section]      %in table of contents in chapter-level
+{glossaries}
+
+\subject{Skriptum}
+\title{107.A04 Wahrscheinlichkeitstheorie und stochastische Prozesse 
+für Informatik 4.0}
+\author{Karl Grill}
+\uppertitleback{Unter Creative Commons Attribution Sharealike Lizenz}
+\lowertitleback{\copyright 2013, 2014  Karl Grill}
+\date{24.1.2014}
+\publishers{Institut für Statistik und Wahrscheinlichkeitstheorie TU Wien}
+
+\makeatletter
+\AtBeginDocument{
+    \hypersetup{
+        pdftitle = {\@title},
+        pdfsubject={\@subtitle},
+        pdfauthor={\@author},
+        pdfproducer={Latex (Debian/GNU Linux)},
+        pdfkeywords={\@title, \@subject}
+    }
+}
+\makeatother
+
+%do some kind of magic :-)
+\setcounter{tocdepth}{4}
+\ExerciseLevelInToc{subsubsection}
+
+%symbollist create
+\newglossary[slg]{symbolslist}{syi}{syg}{Symbolverzeichnis}
+\renewcommand*{\glspostdescription}{}%remove trailing dot
+\makeglossaries
+
+\input{symbols.tex}
+\makeindex
+
+\clearscrheadfoot%define own even-odd positions for page-numbers
+\lohead[\leftmark]{\leftmark}
+\rehead[\rightmark]{\rightmark}
+\refoot[\pagemark]{\pagemark}
+\lofoot[\pagemark]{\pagemark}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\input{chapters/wahrscheinlichkeitstheorie}
+\input{chapters/zufallsvariable}
+\input{chapters/markovketten}
+\input{chapters/statistik}
+\input{chapters/informationstheorie}
+%%%%%\input{chapters/prozesse}
+%
+\begin{appendix}
+\chapter{Tabellen}
+\input{app1}
+\chapter{Mathematische Hintergründe}
+\input{chapters/mathematische_hintergruende}
+
+\chapter{Glossar}
+\printglossary[type=symbolslist,style=long]
+
+\bibliography{cite_list}{}
+\bibliographystyle{plain}
+
+\printindex
+\end{appendix}
+
+\end{document}

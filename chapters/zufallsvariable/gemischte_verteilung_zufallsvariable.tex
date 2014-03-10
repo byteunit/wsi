@@ -1,0 +1,51 @@
+{
+    \def\muval{0}
+    \def\muvalb{1}
+    \def\sigmaval{1}
+    \def\discontinuity{0.4}
+
+    \begin{axis}[
+        domain=-4:4,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        legend pos=north west,
+        xlabel={x},
+        ylabel={},%TODO: was ist diese Achse?
+        samples=200,
+        height=5cm,
+        width=10cm,
+        clip=false]
+
+        \ifnum\pdfshellescape=1 %makro to check, if shellescape is set, to prevent errors from windows
+            \def\cdf(#1)(#2)(#3){1/2*(1+(erf((#3-#1)/(#2*sqrt(2)))))}
+            \addplot[name path global=plota,smooth,red,domain=\discontinuity:4] gnuplot{1.00001*\cdf(\muval)(\sigmaval)(x)}; %multiply with 1.00001 is necessary, otherwise it would not be plotted
+            \addlegendentry[align=left]{Gemischte Verteilung};
+
+            \def\cdf(#1)(#2)(#3){1/2*(1+(erf((#3-#1)/(#2*sqrt(2)))))}
+            \addplot[name path global=plotb,smooth,red,domain=-4:\discontinuity,forget plot] gnuplot{1.00001*\cdf(\muvalb)(\sigmaval)(x)}; %multiply with 1.00001 is necessary, otherwise it would not be plotted
+        \fi
+
+        %find intersection with plota
+	\pgfmathsetmacro{\discontcorr}{\discontinuity+0.0001}
+        \node[coordinate] (Ref) at (axis cs:\discontcorr,0) {};
+        \path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+        \path [name intersections={of=plota and RefPath}];
+        \coordinate (I1)  at (intersection-1);
+
+
+        %find intersection with plotb
+        \node[coordinate] (Ref) at (axis cs:\discontinuity,0) {};
+        \path[name path global=RefPath] (Ref |- current axis.south) -- (Ref |- current axis.north);
+        \path [name intersections={of=plotb and RefPath}];
+        \coordinate (I2)  at (intersection-1);
+
+        %draw line to intersection on theta=\muval-\tauval
+        \draw [dotted] (I1) -- (I2);
+    
+        \node[continuityred] at (I1){};
+        \node[discontinuityred] at (I2){};
+
+        %\addplot[discontinuityred,forget plot] coordinates{(0.4,0.6)};
+        %\addplot[continuityred,forget plot] coordinates{(0.4,0.6)};
+    \end{axis}
+}

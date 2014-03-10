@@ -1,0 +1,35 @@
+{
+    \def\firstcircle{(90:0.8cm) circle (1cm)}
+    \def\secondcircle{(210:0.8cm) circle (1cm)}
+    \def\thirdcircle{(330:0.8cm) circle (1cm)}
+    \def\rectangle{(-2,-1.5) rectangle (2,2)}
+
+    \fill[black!10] \rectangle;
+    \fill[black!10] \firstcircle;
+    \fill[black!10] \secondcircle;
+    \fill[black!10] \thirdcircle;
+
+    \begin{scope}
+        \clip \firstcircle;
+        \fill[orange] \secondcircle;
+    \end{scope}
+    \begin{scope}
+        \clip \firstcircle;
+        \fill[orange] \thirdcircle;
+    \end{scope}
+    \begin{scope}
+        \clip \secondcircle;
+        \fill[orange] \thirdcircle;
+    \end{scope}
+
+    \begin{scope}
+        \clip \firstcircle;
+        \clip \secondcircle;
+        \fill[blue!25] \thirdcircle;
+    \end{scope}
+
+    \draw[red] \firstcircle node {$E_1$};
+    \draw[blue] \secondcircle node {$E_2$};
+    \draw[green!40!black] \thirdcircle node {$E_3$};
+    \draw[black] \rectangle node[below left,black] {$\Omega$};
+}

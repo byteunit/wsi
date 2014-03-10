@@ -1,0 +1,15 @@
+{
+    \def\firstcircle{(90:1cm) circle (1.25cm)}
+    \def\secondcircle{(210:1cm) circle (1.25cm)}
+
+    \fill[green!25] \firstcircle;
+    \fill[green!25] \secondcircle;
+
+    \begin{scope}
+        \clip \firstcircle;
+        \fill[white] \secondcircle;
+    \end{scope}
+
+    \draw \firstcircle node {A};
+    \draw \secondcircle node {B};
+}

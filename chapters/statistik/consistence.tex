@@ -1,0 +1,77 @@
+{
+\def\muval{10}
+\def\sigmavalA{0.5}
+\def\sigmavalB{0.8}
+\def\sigmavalC{1.2}
+\def\epsilonval{1}
+\def\beginval{6}
+\def\endval{14}
+
+\pgfmathsetmacro{\muPlusEps}{\muval+\epsilonval}
+\pgfmathsetmacro{\muMinusEps}{\muval-\epsilonval}
+
+\begin{axis}[
+    domain=\beginval:\endval,
+    axis x line=bottom, % no box around the plot, only x and y axis
+    axis y line=left, % the * would suppress the arrow tips
+    xtick={6,8,...,14},
+    samples=50,
+    height=5cm,
+    width=10cm,
+    clip=false
+]
+
+% Fill curve-part right
+\addplot [
+    fill=black!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\muPlusEps:\endval
+] {normal_distribution(\muval,\sigmavalC,x)} \closedcycle;
+\addplot [
+    fill=blue!60,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\muPlusEps:\endval
+] {normal_distribution(\muval,\sigmavalB,x)} \closedcycle;
+\addplot [
+    fill=green!60,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\muPlusEps:\endval
+] {normal_distribution(\muval,\sigmavalA,x)} \closedcycle;
+
+% Fill curve-part left
+\addplot [
+    fill=black!50,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\beginval:\muMinusEps
+] {normal_distribution(\muval,\sigmavalC,x)} \closedcycle;
+\addplot [
+    fill=blue!60,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\beginval:\muMinusEps
+] {normal_distribution(\muval,\sigmavalB,x)} \closedcycle;
+\addplot [
+    fill=green!60,
+    draw=none,
+    forget plot,            %prevent from listing in legend
+    domain=\beginval:\muMinusEps
+] {normal_distribution(\muval,\sigmavalA,x)} \closedcycle;
+
+
+% Draw curves
+\addplot [thin, smooth, color=green, name path global=first] {normal_distribution(\muval,\sigmavalA,x)};
+\addlegendentry[align=left]{$\hat\theta_a$}
+\addplot [thin, smooth, color=blue, name path global=second] {normal_distribution(\muval,\sigmavalB,x)};
+\addlegendentry{$\hat\theta_b$}
+\addplot [thin, smooth, color=black, name path global=second] {normal_distribution(\muval,\sigmavalC,x)};
+\addlegendentry{$\hat\theta_c$}
+% Draw vertical line:
+\draw [dashed, black, thick] (current axis.south-|{axis cs:\muval,0}) -- (current axis.north-|{axis cs:\muval,0})node [above] {$\theta$};
+\draw [red, thick, name intersections={of={first and second}}] (current axis.north-|{axis cs:\muPlusEps,0}) -- (current axis.south-|{axis cs:\muPlusEps,0}) node [below] {$\theta+\epsilon$};
+\draw [red, thick, name intersections={of={first and second}}] (current axis.north-|{axis cs:\muMinusEps,0}) -- (current axis.south-|{axis cs:\muMinusEps,1}) node [below] {$\theta-\epsilon$};
+\end{axis}
+}

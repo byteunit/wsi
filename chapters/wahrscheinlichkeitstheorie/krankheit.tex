@@ -1,0 +1,17 @@
+{
+    \def\firstrect{(-2,-2) rectangle (2,2)}
+    \def\secondrect{(0.4,1.6) rectangle (2,2)}
+    \def\thirdrect{(0.6,1.4) rectangle (2,2)}
+
+    \fill[red!25] \secondrect;
+    \fill[blue!25] \firstrect;
+
+    \begin{scope}
+        \clip \firstrect;
+        \fill[orange] \secondrect;
+    \end{scope}
+
+    \draw[green,dashed,line width=2pt] \thirdrect;
+    \draw[black] \firstrect node[below left=1.7 and 0.65] {\small{Gesund (98\%)}};
+    \draw[black] \secondrect node[below left=-0.07 and -0.1] {\scriptsize{Krank (2\%)}};
+}

@@ -1,0 +1,17 @@
+{
+    \def\firstrect{(-3,-1) rectangle (1,0.5)}
+    \def\secondrect{(-1,-1) rectangle (3,0.5)}
+    \def\rectangle{(-3,-1) rectangle (3,0.5)}
+
+    \fill[red!25] \secondrect;
+    \fill[blue!25] \firstrect;
+
+    \begin{scope}
+        \clip \firstrect;
+        \fill[orange] \secondrect;
+    \end{scope}
+
+    \draw[black] \firstrect node[below left=0cm and 2.5cm] {\small{Ereig. $A$}};
+    \draw[black] \secondrect node[below left] {\small{Ereig. $B$}};
+    \node[above] {$A\cap B$};
+}

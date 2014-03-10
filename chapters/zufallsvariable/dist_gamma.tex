@@ -1,0 +1,18 @@
+{
+    \begin{axis}[
+        domain=-\xmax:\xmax,
+        axis x line=bottom, % no box around the plot, only x and y axis
+        axis y line=left, % the * would suppress the arrow tips
+        ylabel={$F(x)$},
+        xlabel={$x$},
+        legend pos=north west,
+        samples=50,
+        height=6cm,
+        width=7cm,
+        clip=false]
+
+        %\addplot[thin, smooth, red] {1/2+1/pi*rad(atan((x-\tvala)/\svala))};
+        %\addlegendentry[align=left]{\footnotesize{$\Gamma(\avala,\lvala)$}};
+
+    \end{axis}
+}
